@@ -1,0 +1,131 @@
+# ==============================================================================
+# Magic Number Detection Ground Truth Configuration
+# Catalog Name: J_452_2087_tiling_dat
+# ==============================================================================
+
+catalog_info:
+  readme_url: "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/452/2087/ReadMe"
+  data_url: "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/452/2087/tiling.dat"
+  data_path: ""
+  format: "cds"
+
+# ==============================================================================
+# Column Annotations (29 columns detected)
+# ==============================================================================
+columns:
+
+  CataID:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  objID:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  RAdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  DEdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  rmagFib:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  rPmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  uMmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-9999.0]
+
+  gMmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-9999.0]
+
+  rMmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  iMmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  zMmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  SCode:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  z:
+    Category: "Redshift"
+    Ground_Truth_Magic: [-9.99999]
+
+  NQ:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  SpecId:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  NGamaSpec:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  SuBrR:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  SG-sepr:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  SG-SepJK:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-9.99]
+
+  Kmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-9.99]
+
+  TFlag:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  SClass:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  PClass:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  NClass:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  MasK10:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  Mask12:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  VClass:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  n_VClass:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  DR2Flag:
+    Category: "Flag"
+    Ground_Truth_Magic: []

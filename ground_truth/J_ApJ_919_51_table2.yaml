@@ -1,0 +1,375 @@
+# ==============================================================================
+# Magic Number Detection Ground Truth Configuration
+# Catalog Name: J_ApJ_919_51_table2
+# ==============================================================================
+
+catalog_info:
+  readme_url: "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/919/51/ReadMe"
+  data_url: "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/919/51/table2.dat.gz"
+  data_path: ""
+  format: "cds"
+
+# ==============================================================================
+# Column Annotations (90 columns detected)
+# ==============================================================================
+columns:
+
+  ID:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  GALAP:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  SAS-LBG:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  RAdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  DEdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  SN:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  Fit:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  F160Wmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F160Wmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  Re:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  e_Re:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  n:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  e_n:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  q:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  e_q:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  PA:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  e_PA:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  z:
+    Category: "Redshift"
+    Ground_Truth_Magic: [-99.0]
+
+  r_z:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.0]
+
+  zS03abs:
+    Category: "Redshift"
+    Ground_Truth_Magic: [-99.0]
+
+  zS03em:
+    Category: "Redshift"
+    Ground_Truth_Magic: [-99.0]
+
+  zM17:
+    Category: "Redshift"
+    Ground_Truth_Magic: [-99.0]
+
+  zS15:
+    Category: "Redshift"
+    Ground_Truth_Magic: [-99.0]
+
+  zY12:
+    Category: "Redshift"
+    Ground_Truth_Magic: [-99.0]
+
+  zVVDS:
+    Category: "Redshift"
+    Ground_Truth_Magic: [-99.0]
+
+  zK15:
+    Category: "Redshift"
+    Ground_Truth_Magic: [-99.0]
+
+  umag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_umag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  Bmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_Bmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  Vmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_Vmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  Rmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_Rmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  imag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_imag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  zmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_zmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  Jmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_Jmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  F160WmagK:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F160WmagK:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  Kmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_Kmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  I1mag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_I1mag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  I2mag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_I2mag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  I3mag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_I3mag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  I4mag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_I4mag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  logLx:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-99.0]
+
+  NB497mag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  RmagM17:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  RmagS03:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  Conc:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  f_Conc:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  Gini:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  M20:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  Flag:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  Dens:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  S03-LBG:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  S03-QSO:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  L09-Xray:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  Y12-LAE:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  M17-LBG:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  M17-LAE:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  M17-LYC:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  XAGN:
+    Category: "Identification"
+    Ground_Truth_Magic: [0.0]
+
+  LAB:
+    Category: "Identification"
+    Ground_Truth_Magic: [0.0]
+
+  Mm:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  Field:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  SED:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  MorphA:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  ScA:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  MorphB:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  ScB:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  MorphC:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  ScC:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  MorphD:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  ScD:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  MorphE:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  ScE:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  MorphF:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  ScF:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  MorphG:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  ScG:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  Class:
+    Category: "Flag"
+    Ground_Truth_Magic: [0.0]
+
+  Conf:
+    Category: "Flag"
+    Ground_Truth_Magic: []

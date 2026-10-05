@@ -1,0 +1,107 @@
+# ==============================================================================
+# Magic Number Detection Ground Truth Configuration
+# Catalog Name: J_A_A_555_A42_main210
+# ==============================================================================
+
+catalog_info:
+  readme_url: "https://cdsarc.cds.unistra.fr/ftp/J/A+A/555/A42/ReadMe"
+  data_url: "https://cdsarc.cds.unistra.fr/ftp/J/A+A/555/A42/main210.dat"
+  data_path: ""
+  format: "cds"
+
+# ==============================================================================
+# Column Annotations (23 columns detected)
+# ==============================================================================
+columns:
+
+  ---:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  XMMCDFS:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  ID210:
+    Category: "Identification"
+    Ground_Truth_Magic: [-1]
+
+  RAdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  DEdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  ePos:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  Counts:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_Counts:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  Bkg:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  CRate:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_CRate:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  Flux:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_Flux:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  Signi:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  DetML:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  DetScale:
+    Category: "Morphology"
+    Ground_Truth_Magic: []
+
+  CID:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.0]
+
+  f_CID:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  z:
+    Category: "Redshift"
+    Ground_Truth_Magic: [-1.0]
+
+  r_z:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  f_z:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  ID510:
+    Category: "Identification"
+    Ground_Truth_Magic: [-99.0]
+
+  ExpTime:
+    Category: "Metadata"
+    Ground_Truth_Magic: []

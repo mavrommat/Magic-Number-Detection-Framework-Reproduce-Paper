@@ -1,0 +1,35 @@
+# ==============================================================================
+# Magic Number Detection Ground Truth Configuration
+# Catalog Name: J_A_A_531_A6_tsi_hol
+# ==============================================================================
+
+catalog_info:
+  readme_url: "https://cdsarc.cds.unistra.fr/ftp/J/A+A/531/A6/ReadMe"
+  data_url: "https://cdsarc.cds.unistra.fr/ftp/J/A+A/531/A6/tsi_hol.dat"
+  data_path: ""
+  format: "cds"
+
+# ==============================================================================
+# Column Annotations (5 columns detected)
+# ==============================================================================
+columns:
+
+  Date:
+    Category: "Metadata"
+    Ground_Truth_Magic: []
+
+  TSI:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-9999.9]
+
+  TSI10:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-9999.9]
+
+  e_TSI:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-9.9]
+
+  Model:
+    Category: "Flag"
+    Ground_Truth_Magic: []

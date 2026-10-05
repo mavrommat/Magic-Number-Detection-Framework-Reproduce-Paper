@@ -1,0 +1,167 @@
+# ==============================================================================
+# Magic Number Detection Ground Truth Configuration
+# Catalog Name: I_280B_ccm00
+# ==============================================================================
+
+catalog_info:
+  readme_url: "https://cdsarc.cds.unistra.fr/ftp/I/280B/ReadMe"
+  data_url: "https://cdsarc.cds.unistra.fr/ftp/I/280B/ccm00.dat.gz"
+  data_path: ""
+  format: "cds"
+
+# ==============================================================================
+# Column Annotations (38 columns detected)
+# ==============================================================================
+columns:
+
+  RAhour:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  DEdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  e_RAhour:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  e_DEdeg:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  Plx:
+    Category: "Astrometry"
+    Ground_Truth_Magic: [999999.0]
+
+  e_Plx:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [99999.0]
+
+  pmRA:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  pmDE:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  e_pmRA:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  e_pmDE:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  Bmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [99999.0]
+
+  Vmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [99999.0]
+
+  e_Bmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [9999.0]
+
+  e_Vmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [9999.0]
+
+  Scat:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [9999.0]
+
+  v1:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  v2:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  v3:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  v4:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  d12:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  d3:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  d4:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  d5:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  d6:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  SpType:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  TYC1:
+    Category: "Identification"
+    Ground_Truth_Magic: [0.0]
+
+  TYC2:
+    Category: "Identification"
+    Ground_Truth_Magic: [0.0]
+
+  TYC3:
+    Category: "Identification"
+    Ground_Truth_Magic: [0.0]
+
+  HIP:
+    Category: "Identification"
+    Ground_Truth_Magic: [0.0]
+
+  HD:
+    Category: "Identification"
+    Ground_Truth_Magic: [0.0]
+
+  DM:
+    Category: "Identification"
+    Ground_Truth_Magic: [0.0]
+
+  ASCC:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  Jmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [99999.0]
+
+  e_Jmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [9999.0]
+
+  Hmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [99999.0]
+
+  e_Hmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [9999.0]
+
+  Kmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [99999.0]
+
+  e_Kmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [9999.0]

@@ -1,0 +1,387 @@
+# ==============================================================================
+# Magic Number Detection Ground Truth Configuration
+# Catalog Name: J_MNRAS_415_2336_hatlas
+# ==============================================================================
+
+catalog_info:
+  readme_url: "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/415/2336/ReadMe"
+  data_url: "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/415/2336/hatlas.dat.gz"
+  data_path: ""
+  format: "cds"
+
+# ==============================================================================
+# Column Annotations (93 columns detected)
+# ==============================================================================
+columns:
+
+  ---:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  HATLAS:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  SDP:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  RAdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  DEdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  F250P:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  F350P:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  F500P:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_F250P:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  e_F350P:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  e_F500P:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  F250B:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  F350B:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  F500B:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_F250B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  e_F350B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  e_F500B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  a_F250B:
+    Category: "Aperture"
+    Ground_Truth_Magic: [-99.000000]
+
+  a_F350B:
+    Category: "Aperture"
+    Ground_Truth_Magic: [-99.000000]
+
+  a_F500B:
+    Category: "Aperture"
+    Ground_Truth_Magic: [-99.0]
+
+  F100P:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000, -1.0]
+
+  F160P:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000, -1.0]
+
+  e_F100P:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-1.0]
+
+  e_F160P:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-1.0]
+
+  F100B:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  F160B:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  e_F100B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-1.0]
+
+  e_F160B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-1.0]
+
+  a_F100B:
+    Category: "Aperture"
+    Ground_Truth_Magic: [-1.0]
+
+  a_F160B:
+    Category: "Aperture"
+    Ground_Truth_Magic: [-1.0]
+
+  OBJID:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  RAsdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  DEsdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  rmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  e_rmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.000000]
+
+  IsoA:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.000000]
+
+  sepS:
+    Category: "Cross-Match_differences"
+    Ground_Truth_Magic: [-99.000000]
+
+  LR:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.000000]
+
+  Rel:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.000000]
+
+  S/G:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.000000]
+
+  zph:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.000000]
+
+  e_zph:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.000000]
+
+  n_zph:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.000000]
+
+  f_zph:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.000000]
+
+  o_zph:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.000000]
+
+  zsp:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.000000]
+
+  q_zsp:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.000000]
+
+  r_zsp:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.000000]
+
+  IRAS:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  RAideg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  DEideg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  fpos:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.000000]
+
+  S12:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  S25:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  S60:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  S100:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  q_S12:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.000000]
+
+  q_S25:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.000000]
+
+  q_S60:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.000000]
+
+  q_S100:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.000000]
+
+  sepI:
+    Category: "Cross-Match_differences"
+    Ground_Truth_Magic: [-99.000000]
+
+  ---_1:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  GAMA-IAU:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  GAMA:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  RAgdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  DEgdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  rpmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  rext:
+    Category: "Extinction"
+    Ground_Truth_Magic: []
+
+  rSmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  FUV:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  NUV:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  e_FUV:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.000000]
+
+  e_NUV:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.000000]
+
+  ukron:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  gkron:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  rkron:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  ikron:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  zkron:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  ykron:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  jkron:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  hkron:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  kkron:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.000000]
+
+  e_ukron:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.000000]
+
+  e_gkron:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.000000]
+
+  e_rkron:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.000000]
+
+  e_ikron:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.000000]
+
+  e_zkron:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.000000]
+
+  e_ykron:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.000000]
+
+  e_jkron:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.000000]
+
+  e_hkron:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.000000]
+
+  e_kkron:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.000000]
+
+  LAS8:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  phsrc:
+    Category: "Flag"
+    Ground_Truth_Magic: []

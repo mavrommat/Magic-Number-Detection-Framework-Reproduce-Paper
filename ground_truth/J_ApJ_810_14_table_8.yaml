@@ -1,0 +1,55 @@
+# ==============================================================================
+# Magic Number Detection Ground Truth Configuration
+# Catalog Name: J_ApJ_810_14_table_8
+# ==============================================================================
+
+catalog_info:
+  readme_url: "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/810/14/ReadMe"
+  data_url: "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/810/14/table8.dat"
+  data_path: ""
+  format: "cds"
+
+# ==============================================================================
+# Column Annotations (10 columns detected)
+# ==============================================================================
+columns:
+
+  3FGL:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  Cln:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  CName:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  FRad:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  n_FRad:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  FX:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0]
+
+  Vmag1:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0]
+
+  Vmag2:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0]
+
+  ARO:
+    Category: "Spectral_Information"
+    Ground_Truth_Magic: [-9.99]
+
+  AOX:
+    Category: "Spectral_Information"
+    Ground_Truth_Magic: [-9.99]

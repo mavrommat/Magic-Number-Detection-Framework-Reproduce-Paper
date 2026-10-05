@@ -1,0 +1,95 @@
+# ==============================================================================
+# Magic Number Detection Ground Truth Configuration
+# Catalog Name: ApJ_742_125_xgal
+# ==============================================================================
+
+catalog_info:
+  readme_url: "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/742/125/ReadMe"
+  data_url: "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/742/125/xgal.dat.gz"
+  data_path: ""
+  format: "cds"
+
+# ==============================================================================
+# Column Annotations (20 columns detected)
+# ==============================================================================
+columns:
+
+  ID:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  F814mag:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  RAdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  DEdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  logM:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  e_logM:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  zphot:
+    Category: "Redshift"
+    Ground_Truth_Magic: [-99.0]
+
+  e_zphot:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_zphot:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  MMGGS:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  Pmm:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  GID:
+    Category: "Identification"
+    Ground_Truth_Magic: [-1.0]
+
+  f_GID:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  Dist:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-1.0]
+
+  MMGGz:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  PMMGGz:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  GIDz:
+    Category: "Identification"
+    Ground_Truth_Magic: [-1.0]
+
+  f_GIDz:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  Distz:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-1.0]
+
+  NUV-R:
+    Category: "Photometry"
+    Ground_Truth_Magic: []

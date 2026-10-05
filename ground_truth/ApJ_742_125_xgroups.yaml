@@ -1,0 +1,135 @@
+# ==============================================================================
+# Magic Number Detection Ground Truth Configuration
+# Catalog Name: ApJ_742_125_xgroups
+# ==============================================================================
+
+catalog_info:
+  readme_url: "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/742/125/ReadMe"
+  data_url: "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/742/125/xgroups.dat"
+  data_path: ""
+  format: "cds"
+
+# ==============================================================================
+# Column Annotations (30 columns detected)
+# ==============================================================================
+columns:
+
+  GID:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  RAdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  DEdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  ePos:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  z:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  e_z:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  logLx:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  e_logLx:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  LxScale:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  Fx:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  e_Fx:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  Mask:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  Poor:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  Merger:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  Qual:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  logM200c:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  R200c:
+    Category: "Morphology"
+    Ground_Truth_Magic: []
+
+  AR200c:
+    Category: "Morphology"
+    Ground_Truth_Magic: []
+
+  Conc200c:
+    Category: "Morphology"
+    Ground_Truth_Magic: []
+
+  Nmm:
+    Category: "Morphology"
+    Ground_Truth_Magic: []
+
+  Pmm:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  RAMdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: [-999.0]
+
+  DEMdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: [-999.0]
+
+  MMGGS:
+    Category: "Identification"
+    Ground_Truth_Magic: [-1.0]
+
+  logMM:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-1.0]
+
+  RAZdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: [-999.0]
+
+  DEZdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: [-999.0]
+
+  IDzM:
+    Category: "Identification"
+    Ground_Truth_Magic: [-1.0]
+
+  GLB2011:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  xFlag:
+    Category: "Flag"
+    Ground_Truth_Magic: []

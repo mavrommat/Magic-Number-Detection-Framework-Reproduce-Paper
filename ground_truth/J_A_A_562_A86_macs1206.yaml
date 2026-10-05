@@ -1,0 +1,619 @@
+# ==============================================================================
+# Magic Number Detection Ground Truth Configuration
+# Catalog Name: J_A_A_562_A86_macs1206
+# ==============================================================================
+
+catalog_info:
+  readme_url: "https://cdsarc.cds.unistra.fr/ftp/J/A+A/562/A86/ReadMe"
+  data_url: "https://cdsarc.cds.unistra.fr/ftp/J/A+A/562/A86/macs1206.dat.gz"
+  data_path: ""
+  format: "cds"
+
+# ==============================================================================
+# Column Annotations (151 columns detected)
+# ==============================================================================
+columns:
+
+  ID:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  RAdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  DEdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  Xpos:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  Ypos:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  FWHM:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  Area:
+    Category: "Morphology"
+    Ground_Truth_Magic: []
+
+  S/G:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  ell:
+    Category: "Morphology"
+    Ground_Truth_Magic: []
+
+  f5s:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  n5s:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  n5cr:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  nf:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  F225W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F225W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  F225Wc:
+    Category: "Aperture"
+    Ground_Truth_Magic: [0.0]
+
+  FF225W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_FF225W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  f_FF225W:
+    Category: "Flag"
+    Ground_Truth_Magic: ["i"]
+
+  F225Ws:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  F275W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F275W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  F275Wc:
+    Category: "Aperture"
+    Ground_Truth_Magic: [0.0]
+
+  FF275W:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_FF275W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  f_FF275W:
+    Category: "Flag"
+    Ground_Truth_Magic: ["i"]
+
+  F275Ws:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  F336W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F336W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  F336Wc:
+    Category: "Aperture"
+    Ground_Truth_Magic: [0.0]
+
+  FF336W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_FF336W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  f_FF336W:
+    Category: "Flag"
+    Ground_Truth_Magic: ['i']
+
+  F336Ws:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  F390W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F390W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  F390Wc:
+    Category: "Aperture"
+    Ground_Truth_Magic: [0.0]
+
+  FF390W:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_FF390W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  f_FF390W:
+    Category: "Flag"
+    Ground_Truth_Magic: ['i']
+
+  F390Ws:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  F435W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F435W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  F435Wc:
+    Category: "Aperture"
+    Ground_Truth_Magic: [0.0]
+
+  FF435W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_FF435W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  f_FF435W:
+    Category: "Flag"
+    Ground_Truth_Magic: ['i']
+
+  F435Ws:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  F475W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F475W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  F475Wc:
+    Category: "Aperture"
+    Ground_Truth_Magic: [0.0]
+
+  FF475W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_FF475W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  f_FF475W:
+    Category: "Flag"
+    Ground_Truth_Magic: ['i']
+
+  F475Ws:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  F606W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F606W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  F606Wc:
+    Category: "Aperture"
+    Ground_Truth_Magic: [0.0]
+
+  FF606W:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_FF606W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  f_FF606W:
+    Category: "Flag"
+    Ground_Truth_Magic: ['i']
+
+  F606Ws:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  F625W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F625W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  F625Wc:
+    Category: "Aperture"
+    Ground_Truth_Magic: [0.0]
+
+  FF625W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_FF625W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  f_FF625W:
+    Category: "Flag"
+    Ground_Truth_Magic: ['i']
+
+  F625Ws:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  F775W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F775W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  F775Wc:
+    Category: "Aperture"
+    Ground_Truth_Magic: [0.0]
+
+  FF775W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_FF775W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  f_FF775W:
+    Category: "Flag"
+    Ground_Truth_Magic: ['i']
+
+  F775Ws:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  F814W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F814W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  F814Wc:
+    Category: "Aperture"
+    Ground_Truth_Magic: [0.0]
+
+  FF814W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_FF814W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  f_FF814W:
+    Category: "Flag"
+    Ground_Truth_Magic: ['i']
+
+  F814Ws:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  F850LP:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F850LP:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  F850LPc:
+    Category: "Aperture"
+    Ground_Truth_Magic: [0.0]
+
+  FF850LP:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_FF850LP:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  f_FF850LP:
+    Category: "Flag"
+    Ground_Truth_Magic: ['i']
+
+  F850LPs:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  F105W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F105W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  F105Wc:
+    Category: "Aperture"
+    Ground_Truth_Magic: [0.0]
+
+  FF105W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_FF105W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  f_FF105W:
+    Category: "Flag"
+    Ground_Truth_Magic: ['i']
+
+  F105Ws:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  F110W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F110W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  F110Wc:
+    Category: "Aperture"
+    Ground_Truth_Magic: [0.0]
+
+  FF110W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_FF110W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  f_FF110W:
+    Category: "Flag"
+    Ground_Truth_Magic: ['i']
+
+  F110Ws:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  F125W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F125W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  F125Wc:
+    Category: "Aperture"
+    Ground_Truth_Magic: [0.0]
+
+  FF125W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_FF125W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  f_FF125W:
+    Category: "Flag"
+    Ground_Truth_Magic: ['i']
+
+  F125Ws:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  F140W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F140W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  F140Wc:
+    Category: "Aperture"
+    Ground_Truth_Magic: [0.0]
+
+  FF140W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_FF140W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  f_FF140W:
+    Category: "Flag"
+    Ground_Truth_Magic: ['i']
+
+  F140Ws:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  F160W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_F160W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  F160Wc:
+    Category: "Aperture"
+    Ground_Truth_Magic: [0.0]
+
+  FF160W:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_FF160W:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  f_FF160W:
+    Category: "Flag"
+    Ground_Truth_Magic: ['i']
+
+  F160Ws:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  zb:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  b_zb:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  B_zb:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  tb:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  odds:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  chisq:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  chisq2:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  M0:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  zml:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  tml:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  zlp:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  b_zlp:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  B_zlp:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  zML:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  b_zML:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  B_zML:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  b_z95:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  B_z95:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  chilp:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  tlp:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  EBVlp:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  MAGlp:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  oddlp:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  zlp2:
+    Category: "Redshift"
+    Ground_Truth_Magic: [-99.0]
+
+  chilp2:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [0.1e+10]
+
+  tlp2:
+    Category: "Flag"
+    Ground_Truth_Magic: [-999.0]

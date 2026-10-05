@@ -1,0 +1,539 @@
+# ==============================================================================
+# Magic Number Detection Ground Truth Configuration
+# Catalog Name: VII/269_dr9q
+# ==============================================================================
+
+catalog_info:
+  readme_url: "https://cdsarc.cds.unistra.fr/ftp/VII/269/ReadMe"
+  data_url: "https://cdsarc.cds.unistra.fr/ftp/VII/269/dr9q.dat.gz"
+  data_path: ""
+  format: "cds"
+
+# ==============================================================================
+# Column Annotations (131 columns detected)
+# ==============================================================================
+columns:
+
+  SDSS:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  RAdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  DEdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  THINGID:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  Plate:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  MJD:
+    Category: "Temporal_Information"
+    Ground_Truth_Magic: []
+
+  Fiber:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  z.v:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  z.b:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  e_z.b:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-1.0]
+
+  f_z.b:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  z.p:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  e_z.p:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-1.0]
+
+  qCont:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-1.0]
+
+  zCIV:
+    Category: "Redshift"
+    Ground_Truth_Magic: [-1.0]
+
+  zCIII:
+    Category: "Redshift"
+    Ground_Truth_Magic: [-1.0]
+
+  zMgII:
+    Category: "Redshift"
+    Ground_Truth_Magic: [-1.0]
+
+  Morph:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  Btarg1:
+    Category: "Flag"
+    Ground_Truth_Magic: [0.0]
+
+  Atarg1:
+    Category: "Flag"
+    Ground_Truth_Magic: [0.0]
+
+  Atarg2:
+    Category: "Flag"
+    Ground_Truth_Magic: [0.0]
+
+  f7:
+    Category: "Flag"
+    Ground_Truth_Magic: [0.0]
+
+  Plate7:
+    Category: "Identification"
+    Ground_Truth_Magic: [-1.0]
+
+  MJD7:
+    Category: "Temporal_Information"
+    Ground_Truth_Magic: [-1.0]
+
+  Fiber7:
+    Category: "Identification"
+    Ground_Truth_Magic: [-1.0]
+
+  US:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  iMAG:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-9999.0]
+
+  D(g-i):
+    Category: "Photometry"
+    Ground_Truth_Magic: [-9999.0]
+
+  alpha:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [500.0]
+
+  SNRsp:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  SNR1700:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-1.0]
+
+  SNR3000:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-1.0]
+
+  SNR5150:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-1.0]
+
+  FW(CIV):
+    Category: "Morphology"
+    Ground_Truth_Magic: [-1.0]
+
+  HW(CIV)b:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-1.0]
+
+  HW(CIV)r:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-1.0]
+
+  A(CIV):
+    Category: "Photometry"
+    Ground_Truth_Magic: [-1.0]
+
+  W(CIV):
+    Category: "Morphology"
+    Ground_Truth_Magic: [-1.0]
+
+  e_W(CIV):
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-1.0]
+
+  FW(CIII):
+    Category: "Morphology"
+    Ground_Truth_Magic: [-1.0]
+
+  HW(CIII)b:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-1.0]
+
+  HW(CIII)r:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-1.0]
+
+  A(CIII):
+    Category: "Photometry"
+    Ground_Truth_Magic: [-1.0]
+
+  W(CIII):
+    Category: "Morphology"
+    Ground_Truth_Magic: [-1.0]
+
+  e_W(CIII):
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-1.0]
+
+  FW(MgII):
+    Category: "Morphology"
+    Ground_Truth_Magic: [-1.0]
+
+  HW(MgII)b:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-1.0]
+
+  HW(MgII)r:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-1.0]
+
+  A(MgII):
+    Category: "Photometry"
+    Ground_Truth_Magic: [-1.0]
+
+  W(MgII):
+    Category: "Morphology"
+    Ground_Truth_Magic: [-1.0]
+
+  e_W(MgII):
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-1.0]
+
+  BAL:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  BI(CIVt):
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-1.0]
+
+  e_BI(CIVt):
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-1.0]
+
+  AI(CIVt):
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-1.0]
+
+  e_AI(CIVt):
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-1.0]
+
+  DI(CIVt):
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-1.0]
+
+  e_DI(CIVt):
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-1.0]
+
+  Chi2CIVt:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  N2t:
+    Category: "Morphology"
+    Ground_Truth_Magic: []
+
+  Vmin2t:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [0.0]
+
+  Vmax2t:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [0.0]
+
+  N.45t:
+    Category: "Morphology"
+    Ground_Truth_Magic: []
+
+  Vmin.45t:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  Vmax.45t:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  W(SiIVt):
+    Category: "Morphology"
+    Ground_Truth_Magic: [0.0]
+
+  W(CIVt):
+    Category: "Morphology"
+    Ground_Truth_Magic: [0.0]
+
+  W(AlIIIt):
+    CCategory: "Morphology"
+    Ground_Truth_Magic: [0.0]
+
+  Run:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  Ph-MJD:
+    Category: "Temporal_Information"
+    Ground_Truth_Magic: []
+
+  Rerun:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  Colcam:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  Field:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  objID:
+    Category: "Identification"
+    Ground_Truth_Magic: [-9999.0]
+
+  Fu:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-9999.0]
+
+  e_Fu:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-9999.0]
+
+  Fg:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-9999.0]
+
+  e_Fg:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-9999.0]
+
+  Fr:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-9999.0]
+
+  e_Fr:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-9999.0]
+
+  Fi:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-9999.0]
+
+  e_Fi:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-9999.0]
+
+  Fz:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-9999.0]
+
+  e_Fz:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-9999.0]
+
+  Fut:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-9999.0]
+
+  Fgt:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-9999.0]
+
+  Frt:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-9999.0]
+
+  Fit:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-9999.0]
+
+  Fzt:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-9999.0]
+
+  Extu:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  logNHI:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-9.0]
+
+  logXcr:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-9.0]
+
+  SNR(X):
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-9.0]
+
+  sepX:
+    Category: "Astrometry"
+    Ground_Truth_Magic: [0.0]
+
+  FNUV:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_FNUV:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  FFUV:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_FFUV:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  Jmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_Jmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-1.0]
+
+  SNR(J):
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-1.0]
+
+  f_Jmag:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  Hmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_Hmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-1.0]
+
+  SNR(H):
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-1.0]
+
+  f_Hmag:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  Kmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_Kmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-1.0]
+
+  SNR(K):
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-1.0]
+
+  f_Kmag:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  sep2:
+    Category: "Astrometry"
+    Ground_Truth_Magic: [0.0]
+
+  W1mag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_W1mag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  W1SNR:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [0.0]
+
+  W1chi2:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [0.0]
+
+  W2mag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_W2mag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  W2SNR:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [0.0]
+
+  W2chi2:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [0.0]
+
+  W3mag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_W3mag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  W3SNR:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [0.0]
+
+  W3chi2:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [0.0]
+
+  W4mag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  e_W4mag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [0.0]
+
+  W4SNR:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [0.0]
+
+  W4chi2:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [0.0]
+
+  sepW:
+    Category: "Astrometry"
+    Ground_Truth_Magic: [0.0]
+
+  F1p:
+    Category: "Photometry"
+    Ground_Truth_Magic: [0.0]
+
+  SNR(1):
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [0.0]
+
+  sep1:
+    Category: "Astrometry"
+    Ground_Truth_Magic: [0.0]

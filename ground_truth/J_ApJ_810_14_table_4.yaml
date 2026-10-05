@@ -1,0 +1,79 @@
+# ==============================================================================
+# Magic Number Detection Ground Truth Configuration
+# Catalog Name: J_ApJ_810_14_table_4
+# ==============================================================================
+
+catalog_info:
+  readme_url: "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/810/14/ReadMe"
+  data_url: "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/810/14/table4.dat"
+  data_path: ""
+  format: "cds"
+
+# ==============================================================================
+# Column Annotations (16 columns detected)
+# ==============================================================================
+columns:
+
+  3FGL:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  Cln:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  CName:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  RAdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  DEdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  Sep:
+    Category: "Cross-Match_differences"
+    Ground_Truth_Magic: []
+
+  PosErr:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  SpCl:
+    Category: "Classification"
+    Ground_Truth_Magic: []
+
+  SEDCl:
+    Category: "Classification"
+    Ground_Truth_Magic: []
+
+  lognu:
+    Category: "Spectral_Information"
+    Ground_Truth_Magic: []
+
+  lognuRf:
+    Category: "Spectral_Information"
+    Ground_Truth_Magic: []
+
+  z:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  Prob:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  LR-RG:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  LR-XGP:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  logCpt:
+    Category: "Spectral_Information"
+    Ground_Truth_Magic: []

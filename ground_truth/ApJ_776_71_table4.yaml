@@ -1,0 +1,1023 @@
+# ==============================================================================
+# Magic Number Detection Ground Truth Configuration
+# Catalog Name: ApJ_776_71_table4
+# ==============================================================================
+
+catalog_info:
+  readme_url: "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/776/71/ReadMe"
+  data_url: "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/776/71/table4.dat.gz"
+  data_path: ""
+  format: "cds"
+
+# ==============================================================================
+# Column Annotations (252 columns detected)
+# ==============================================================================
+columns:
+
+  ---:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  Group:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  2dFGRS:
+    Category: "Identification"
+    Ground_Truth_Magic: [99999.0]
+
+  ---_1:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  ID:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  zgr:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  RAdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  DEdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  z:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  wComp:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  Rrms:
+    Category: "Morphology"
+    Ground_Truth_Magic: []
+
+  R200:
+    Category: "Morphology"
+    Ground_Truth_Magic: []
+
+  sigma:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  Lgr:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  Nm:
+    Category: "Morphology"
+    Ground_Truth_Magic: []
+
+  Mgr:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  dLSS:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  qLSS:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  fr:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  fc:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  dR200:
+    Category: "Morphology"
+    Ground_Truth_Magic: []
+
+  Mbest:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  b_Mbest:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  B_Mbest:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  Mmed:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  Mp16:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  Mp84:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  MmaxL:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-99.0]
+
+  TT:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.0]
+
+  fM:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.0]
+
+  nI:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  e_nI:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_nI:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  nB:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  e_nB:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_nB:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  nIc:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  nBc:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  gReI:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  e_gReI:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_gReI:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  DgReI:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  gReB:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  e_gReB:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_gReB:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  DgReB:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  gReIc:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  gReBc:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  gEllI:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  e_gEllI:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_gEllI:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  gEllB:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  e_gEllB:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_gEllB:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  gEllIc:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  gEllBc:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  dI-tot:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  e_dI-tot:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_dI-tot:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  dB-tot:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  e_dB-tot:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_dB-tot:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  tI:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.0]
+
+  tB:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.0]
+
+  bT-I:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0, -98.0]
+
+  e_bT-I:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_bT-I:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  bT-B:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0, -98.0]
+
+  e_bT-B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_bT-B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  bRe-I:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0, -98.0]
+
+  e_bRe-I:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_bRe-I:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  bRe-B:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0, -98.0]
+
+  e_bRe-B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_bRe-B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  dh-I:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0, -98.0]
+
+  e_dh-I:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_dh-I:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  dh-B:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0, -98.0]
+
+  e_dh-B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_dh-B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  nb-I:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0, -98.0]
+
+  e_nb-I:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_nb-I:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  nb-B:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0, -98.0]
+
+  e_nb-B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_nb-B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  ellb-I:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0, -98.0]
+
+  e_ellb-I:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_ellb-I:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  ellb-B:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0, -98.0]
+
+  e_ellb-B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_ellb-B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  di-I:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0, -98.0]
+
+  e_di-I:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_di-I:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  di-B:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0, -98.0]
+
+  e_di-B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_di-B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  bdReI:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  bdReB:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  zReI:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  zReB:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  zReIc:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  zReBc:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  zEllI:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  zEllB:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  zEllIc:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  zEllBc:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  CI:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  CB:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  CIc:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  CBc:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  GiniI:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  GiniB:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  GiniIc:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  GiniBc:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  M20I:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  M20B:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  M20Ic:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  M20Bc:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  AsymI:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  AsymB:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  SI:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  SB:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  RpI:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  RpB:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  RkI:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  RkB:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  fB:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.0]
+
+  aBar:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  fBar:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  SpT:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.0]
+
+  fSF:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.0]
+
+  SFRbest:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-99.0]
+
+  b_SFRbest:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  B_SFRbest:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  SFRmed:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-99.0]
+
+  SFR16:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-99.0]
+
+  SFR84:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-99.0]
+
+  SFRmaxL:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-99.0]
+
+  sSFRbest:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-99.0]
+
+  b_sSFRbest:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  B_sSFRbest:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  sSFRmed:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-99.0]
+
+  sSFRP16:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-99.0]
+
+  sSFRP84:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-99.0]
+
+  sSFRmaxL:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-99.0]
+
+  kcorr-B:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-99.0]
+
+  kcorr-I:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-99.0]
+
+  oBmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  rBmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_rBmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  BMag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  oImag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  rImag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_rImag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  IMag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  BmagK:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_BmagK:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  ImagK:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_ImagK:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  B-I:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  bjmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  rFmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  FUVmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_FUVmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  NUVmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_NUVmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  NUV-I:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  NUV-B:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  FUV-NUV:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  umag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_umag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  gmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_gmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  rmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_rmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  imag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_imag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  zmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_zmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  Jmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_Jmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  Hmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_Hmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  Kmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_Kmag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  BmagS:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_BmagS:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_BmagS:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  ImagS:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_ImagS:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_ImagS:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  BmagSc:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  ImagSc:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  BmagE:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_BmagE:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_BmagE:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  ImagE:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_ImagE:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_ImagE:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  oBmag.b:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_oBmag.b:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_oBmag.b:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  oImag.b:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_oImag.b:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_oImag.b:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  rBmag.b:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  rImag.b:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  oBmag.d:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_oBmag.d:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_oBmag.d:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  oImag.d:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_oImag.d:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_oImag.d:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  rBmag.d:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  rImag.d:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  Mb:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-99.0]
+
+  Mb16:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-99.0]
+
+  Mb84:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-99.0]
+
+  Md:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-99.0]
+
+  Md16:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-99.0]
+
+  Md84:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-99.0]
+
+  d(B-I)V:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-99.0]
+
+  e_d(B-I)V:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  d(B-I)Vc:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [-99.0]
+
+  (B-I)RV:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_(B-I)RV:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, 99.0]
+
+  (B-I)RVc:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  (B-I)rms:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  d(B-I)G:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_d(B-I)G:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  (B-I)RG:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  e_(B-I)RG:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, 99.0]
+
+  gBadSFR:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.0]
+
+  cFlag:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.0]
+
+  BmagKc:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  ImagKc:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  zCompl:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  dFmagLim:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  muVal:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: []
+
+  fPc:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  diE-I:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  e_diE-I:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_diE-I:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  diE-B:
+    Category: "Morphology"
+    Ground_Truth_Magic: [-99.0]
+
+  e_diE-B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  E_diE-B:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  fDev:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.0]
+
+  SpCl:
+    Category: "Flag"
+    Ground_Truth_Magic: [-99.0]

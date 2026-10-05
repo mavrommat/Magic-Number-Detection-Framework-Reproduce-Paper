@@ -1,0 +1,443 @@
+# ==============================================================================
+# Magic Number Detection Ground Truth Configuration
+# Catalog Name: J_ApJ_836_99_table5
+# ==============================================================================
+
+catalog_info:
+  readme_url: "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/836/99/ReadMe"
+  data_url: "https://cdsarc.cds.unistra.fr/ftp/J/ApJ/836/99/table5.dat"
+  data_path: ""
+  format: "cds"
+
+# ==============================================================================
+# Column Annotations (107 columns detected)
+# ==============================================================================
+columns:
+
+  Seq:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  ---:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  NuSTAR:
+    Category: "Identification"
+    Ground_Truth_Magic: []
+
+  RAdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  DEdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  SFl:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  HFl:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  FFl:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  SdbFl:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  HdbFl:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  FdbFl:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  logSP:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-999.0]
+
+  logHP:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-999.0]
+
+  logFP:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-999.0]
+
+  logSdbP:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-999.0]
+
+  logHdbP:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-999.0]
+
+  logFdbP:
+    Category: "Statistical_Quantities"
+    Ground_Truth_Magic: [-999.0]
+
+  dbFl:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  Scts:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_Scts:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  SBck:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  SNet:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_SNet:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, -88.0, -77.0]
+
+  Hcts:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_Hcts:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  HBck:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  HNet:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_HNet:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, -88.0, -77.0]
+
+  Fcts:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_Fcts:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  FBck:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  FNet:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_FNet:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, -88.0, -77.0]
+
+  Sdbcts:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_Sdbcts:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  SdbNet:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_SdbNet:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, -88.0, -77.0]
+
+  Hdbcts:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_Hdbcts:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  HdbNet:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_HdbNet:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, -88.0, -77.0]
+
+  Fdbcts:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_Fdbcts:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  FdbNet:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_FdbNet:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, -88.0, -77.0]
+
+  Sexp:
+    Category: "Temporal_Information"
+    Ground_Truth_Magic: []
+
+  Hexp:
+    Category: "Temporal_Information"
+    Ground_Truth_Magic: []
+
+  Fexp:
+    Category: "Temporal_Information"
+    Ground_Truth_Magic: []
+
+  SCR:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_SCR:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, -88.0, -77.0]
+
+  SCRBck:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  SNCR:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_SNCR:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  HCR:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_HCR:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  HCRBck:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  HNCR:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_HNCR:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, -88.0, -77.0]
+
+  FCR:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_FCR:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  FCRBck:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  FNCR:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_FNCR:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, -88.0, -77.0]
+
+  SdbNCR:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_SdbNCR:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, -88.0, -77.0]
+
+  HdbNCR:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_HdbNCR:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, -88.0, -77.0]
+
+  FdbNCR:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_FdbNCR:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, -88.0, -77.0]
+
+  H/S:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: [0.0]
+
+  E_H/S:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, -88.0, -77.0]
+
+  e_H/S:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, -88.0, -77.0]
+
+  gamma:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  E_gamma:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, -88.0, -77.0]
+
+  e_gamma:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0, -88.0, -77.0]
+
+  SFlux:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_SFlux:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  HFlux:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_HFlux:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  FFlux:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_FFlux:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: [-99.0]
+
+  XOrig:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  RAXdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  DEXdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  XOff:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  XFlux:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  XTFlux:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  RAWdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  DEWdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  IROff:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  W1mag:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_W1mag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  W2mag:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_W2mag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  W3mag:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_W3mag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  W4mag:
+    Category: "Photometry"
+    Ground_Truth_Magic: []
+
+  e_W4mag:
+    Category: "Errors-Uncertainties"
+    Ground_Truth_Magic: []
+
+  OOrig:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  RAOdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  DEOdeg:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  OOff:
+    Category: "Astrometry"
+    Ground_Truth_Magic: []
+
+  Rmag:
+    Category: "Photometry"
+    Ground_Truth_Magic: [-99.0]
+
+  zsp:
+    Category: "Redshift"
+    Ground_Truth_Magic: []
+
+  XLum:
+    Category: "Physical_Properties"
+    Ground_Truth_Magic: []
+
+  PFl:
+    Category: "Flag"
+    Ground_Truth_Magic: []
+
+  A15Fl:
+    Category: "Flag"
+    Ground_Truth_Magic: []
