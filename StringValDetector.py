@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 def string_magic_values(data_array):
-    # Check if there are any string values in the array (including np.str_)
+    # Check if there are any string 
     has_strings = any(isinstance(item, (str, np.str_)) for item in data_array)
 
     string_values = []
@@ -22,7 +22,7 @@ def string_magic_values(data_array):
                 except ValueError:
                     string_values.append(item)
             elif isinstance(item, (int, float, np.number)):
-                # If it's already a numeric type, add to filtered_array
+                # If already a numeric type will add it to filtered_array
                 filtered_array.append(item)
 
         filtered_array = np.array(filtered_array)

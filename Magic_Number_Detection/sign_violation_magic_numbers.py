@@ -19,7 +19,7 @@ def sign_violation_magic_numbers(data_arr, sign_violation_theshold=3):
 
     sign_violating_magic_numbers = []
 
-    # Check for sign violations, ensure the count > 1
+    # Check for sign violations ensure the count > 1
     if all(x > 0 for x in pos_data_arr_unique_sorted):
         sign_violating_magic_numbers.extend([
             val for val in test_values 

@@ -5,6 +5,7 @@ import seaborn as sns
 import matplotlib.cm as cm
 from matplotlib.colors import Normalize
 import os
+from scipy.stats import gaussian_kde
 
 
 def find_center_of_excellence(df, metric, params, tolerance=0.05, alpha=0.9):
@@ -198,15 +199,9 @@ def plot_corner_metric_continuous(df, file_name=None, metrics=['f1_score', 'reca
             
         plt.close(fig)
 
-from scipy.stats import gaussian_kde
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-import os
+
 
 # Standalone KDEs
-# ---------------------------------------------
 def plot_standalone_kdes(csv_path, f1_threshold=0.95):
     print("Loading data and generating standalone KDE distributions...")
     
@@ -245,7 +240,7 @@ def plot_standalone_kdes(csv_path, f1_threshold=0.95):
             'Contamination Ratio'  
         ]
 
-    # Single column width: 90 mm (3.54 in), standard 4:3 aspect ratio
+    # standard 4:3 aspect ratio
     fig_width = 3.54 
     fig_height = 2.65 
     
@@ -260,7 +255,6 @@ def plot_standalone_kdes(csv_path, f1_threshold=0.95):
         'legend.fontsize': 7,
         'axes.linewidth': 0.8,
         'lines.linewidth': 1.2,
-        # Increased base DPI for crisp raster output
         'figure.dpi': 600
     })
 
@@ -312,18 +306,15 @@ def plot_standalone_kdes(csv_path, f1_threshold=0.95):
         output_dir = os.path.join("Synthetic Experiments", "Plots")
         os.makedirs(output_dir, exist_ok=True)
         
-        # Outputting as high-resolution PNG
         save_filename = os.path.join(output_dir, f"{base_name}_{param}_kde_scaled.png")
         plt.savefig(save_filename, 
                     format='png',
-                    dpi=600, # 600 DPI ensures line plots remain sharp in print 
+                    dpi=600,  
                     bbox_inches='tight',
                     pad_inches=0.02)
         
         plt.close(fig)
-# ---------------------------------------------
 # Script Execution
-# ---------------------------------------------
 if __name__ == "__main__":
     output_filename = "Synthetic Experiments/Data/2_magic_numbers_results.csv" 
     

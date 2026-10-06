@@ -12,9 +12,7 @@ logging.basicConfig(level=logging.ERROR)
 from SyntheticDataGenerator import SyntheticData
 from Magic_Number_Detection.get_magic_numbers import MagicNumberDetector
 
-# ==========================================
 # 1. Configuration for Scalability Test
-# ==========================================
 DATASET_SIZES = [10_000, 50_000, 100_000, 250_000, 500_000, 1_000_000, 2_000_000, 5_000_000, 10_000_000]
 
 ITERATIONS_PER_SIZE = 5 
@@ -73,9 +71,7 @@ class ScalabilityBenchmark:
         print("\nBenchmarking complete.")
         return pd.DataFrame(self.results)
 
-# ==========================================
-# 2. Plotting the Theoretical vs Empirical Curve
-# ==========================================
+# Plotting the theoretical - empirical curve
 def plot_scalability(df, save_path):
     fig, ax = plt.subplots(figsize=(10, 7))
     
@@ -111,7 +107,6 @@ def plot_scalability(df, save_path):
 
 
 def run_scalability_benchmark():
-    # Prepare Output Directories
     data_dir = os.path.join("Synthetic Experiments", "Data")
     plots_dir = os.path.join("Synthetic Experiments", "Plots")
     os.makedirs(data_dir, exist_ok=True)

@@ -166,11 +166,11 @@ if __name__ == "__main__":
         "sign_violation_threshold": 3
     }
 
-    # 4. Execute the Grid Search (10,000 iterations)
+    # 4. Execute the Grid Search 
     grid_runner = ParameterGrid(
         variables=framework_variables, 
         param_grid=hyperparameter_spaces, 
-        total_runs=100000
+        total_runs=100000 # (10,000 iterations)
     )
     
     print(f"Initiating Flat Random Grid Search (100,000 unique data & detector combinations)...")
@@ -187,7 +187,7 @@ if __name__ == "__main__":
             "overlap_threshold": run["overlap_threshold"],
             "center_distance": run["center_distance"], 
             "gap_distance": run["gap_distance"],
-            "contamination_rate": run.get("contamination_rate", 0.05), # <-- Ensure this is exported
+            "contamination_rate": run.get("contamination_rate", 0.05), 
             "injected_magic_numbers": str(run["injected_magic_numbers"]),
             "quantities": str(run["quantities"])
         }

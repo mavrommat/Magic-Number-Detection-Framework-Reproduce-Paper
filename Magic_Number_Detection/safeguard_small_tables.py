@@ -51,16 +51,15 @@ class SmallTablesSafeguard:
 
         filtered_list = [x for x in data_arr_sorted if lower_bound <= x <= upper_bound]
         
-        # variance check (accounts for microscopic floating-point noise)
+        # variance check accounts for floating-point noise
         if len(filtered_list) < 2 or np.std(filtered_list) < 1e-8:
             print("Warning: Filtered list has effectively zero variance. Skipping KDE sampling.")
             return [] 
 
-        # safeguard: Try/Except block
+        # safeguard
         try:
             kde = gaussian_kde(filtered_list) # Fit a KDE
         except Exception as e:
-            # If scipy throws a LinAlgError (or any other error), we catch it and move on safely
             print(f"Warning: KDE failed due to singular matrix (too little variance). Skipping. Details: {e}")
             return []
             

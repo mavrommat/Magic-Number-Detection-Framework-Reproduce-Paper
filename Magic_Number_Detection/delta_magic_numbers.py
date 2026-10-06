@@ -120,7 +120,6 @@ class DeltaMagicNumbers:
             # We still calculate the normal distribution just for the visual overlay
             dist = norm(loc=mu, scale=sigma)
             
-            # Update params BEFORE creating the figure
             plt.rcParams.update({
                 'font.size': 14,
                 'font.family': 'serif',
@@ -367,7 +366,6 @@ class DeltaMagicNumbers:
         max_val = max(small_array.max(), big_array.max())
         
         # Original: x = np.linspace(min_val - 1, max_val + 1, 1000)
-        # Fix: Combine a denser linspace with the actual data points to guarantee peaks are captured
         grid_points = np.linspace(min_val - 1, max_val + 1, 5000)
         x = np.unique(np.concatenate((grid_points, small_array, big_array)))
         x.sort()
@@ -378,15 +376,11 @@ class DeltaMagicNumbers:
         # Calculate overlap
         overlap = np.minimum(small_pdf, big_pdf)
 
-        # scipy.integrate.trapezoid handles non-uniform x-spacing seamlessly
         total_area = trapezoid(overlap, x)
         #print(f"Total overlap in column:{self.col_name} is {total_area}")
 
-        #print("type(total_area):", type(total_area))
         #print("total_area:", total_area)
         
-        # KDE PDFs always integrate to ~1.0, so area_small + area_big is ~2.0
-        # Your original math was correct, but we can simplify it:
         overlap_percentage = total_area * 100 
         
         if plot_graphs:

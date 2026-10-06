@@ -2,11 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# ==========================================
-# Elsevier Publication Figure Settings
-# ==========================================
+
 fig_width = 3.54 
-# Height halved since we are now exporting two separate images
 fig_height = 2.75 
 
 plt.rcParams.update({
@@ -22,9 +19,7 @@ plt.rcParams.update({
     'axes.linewidth': 0.5
 })
 
-# ==========================================
-# Data Generation
-# ==========================================
+
 np.random.seed(42)
 
 dist_type = 'lognormal' 
@@ -45,14 +40,12 @@ data_10 = np.concatenate([base_data, outliers_10])
 outliers_100 = np.full(100, placeholder_value)
 data_100 = np.concatenate([base_data, outliers_100])
 
-# ==========================================
-# Plotting & Exporting
-# ==========================================
+
+# Plotting and Exporting
 color_hist = '#4F94B4'  
 color_kde = '#A33B76'   
 color_vline = '#F29C07' 
 
-# Map the datasets to the 'a' and 'b' filenames required by LaTeX
 datasets = [
     (data_10, 10, 'a'), 
     (data_100, 100, 'b')

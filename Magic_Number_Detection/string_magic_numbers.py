@@ -9,7 +9,7 @@ def string_magic_values(data_array):
     filtered_array = []
 
     if not has_strings:
-        # If no strings, returns an empty list
+        # If no strings returns an empty list
         return data_array, string_values
 
     else:
@@ -22,7 +22,7 @@ def string_magic_values(data_array):
                 except ValueError:
                     string_values.append(item)
             elif isinstance(item, (int, float, np.number)):
-                # If it's already a numeric type, add to filtered_array
+                # If it is already a numeric type will add it to filtered_array
                 filtered_array.append(item)
 
         filtered_array = np.array(filtered_array)

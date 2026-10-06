@@ -6,7 +6,6 @@ from scipy.stats import gaussian_kde
 def plot_data_density(data_arr, col_name, plot_graphs = True):
 
     if plot_graphs == True:
-        # Professional settings
         plt.rcParams.update({
             'font.size': 14,
             'font.family': 'serif',

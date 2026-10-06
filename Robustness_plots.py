@@ -9,7 +9,7 @@ def generate_robustness_proof(json_filepath: str):
     with open(json_filepath, 'r', encoding='utf-8') as f:
         data = json.load(f)
 
-    # 1. Extract ALL Parameter Combinations
+    # Extract ALL Parameter Combinations
     flattened_data = []
     for catalog_name, runs in data.items():
         for run in runs:
@@ -26,17 +26,17 @@ def generate_robustness_proof(json_filepath: str):
     df = pd.DataFrame(flattened_data)
     print(f"Extracted {len(df)} total column evaluations across all configurations.\n")
 
-    # 2. Setup the Visualization
+    # Setup the visualization
     sns.set_theme(style="whitegrid", palette="muted")
     fig, axes = plt.subplots(1, 3, figsize=(18, 5))
 
-    # Helper function for Violin + Stripplot layering
+    # Violin + Stripplot 
     def plot_dense_metric(x_col, ax, title, color, order):
         # The Violin shows the density (cut=0 keeps it within actual data bounds)
         sns.violinplot(data=df, x=x_col, y="Alg_F1", ax=ax, color=color, 
                        order=order, inner=None, cut=0, alpha=0.4)
         
-        # The Stripplot shows the actual individual runs
+        # Stripplot: shows the actual individual runs
         sns.stripplot(data=df, x=x_col, y="Alg_F1", ax=ax, color="black", 
                       order=order, alpha=0.05, size=2.5, jitter=True)
         
@@ -64,8 +64,8 @@ def generate_robustness_proof(json_filepath: str):
     plt.suptitle("Algorithm Robustness Across Hyperparameter Grid", fontsize=16, fontweight='bold', y=1.05)
     plt.tight_layout()
     plt.savefig("Hyperparameter_Robustness_Proof.png", dpi=300, bbox_inches='tight')
-    print("✅ Saved: Hyperparameter_Robustness_Proof.png")
+    print("Saved: Hyperparameter_Robustness_Proof.png")
     plt.show()
 
-# --- Execution ---
+#  Execution 
 generate_robustness_proof("grid_search_results.json")

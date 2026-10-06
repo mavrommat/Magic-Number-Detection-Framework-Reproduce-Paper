@@ -225,7 +225,6 @@ def overlap_non_extreme_values(results, data_arr, overlap_threshold, plot_graphs
         except (ValueError, TypeError):
             continue
 
-        # Extract info with defaults to prevent KeyErrors
         is_extreme = info.get('is_first', False) or info.get('is_last', False)
         freq = info.get('frequency', 0)
 
