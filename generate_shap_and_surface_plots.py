@@ -10,7 +10,14 @@ import os
 warnings.filterwarnings("ignore")
 F1_SUCCESS_THRESHOLD = 0.95
 plt.style.use('seaborn-v0_8-paper')
-sns.set_context("paper", font_scale=1.1)
+sns.set_context("paper", font_scale=1.4, rc={
+    "axes.titlesize": 14,     
+    "axes.labelsize": 12,     
+    "xtick.labelsize": 10,     
+    "ytick.labelsize": 10,
+    "legend.fontsize": 10,
+    "legend.title_fontsize": 12
+})
 
 def load_and_prep_data(filepath):
     df = pd.read_csv(filepath)
@@ -146,35 +153,35 @@ def generate_all_plots():
             base_name = os.path.splitext(os.path.basename(csv_file))[0]
             print(f"Generating and saving individual plots for {base_name}...")
 
-            fig, ax = plt.subplots(figsize=(8, 6), constrained_layout=True)
+            fig, ax = plt.subplots(figsize=(7.48, 5.0), constrained_layout=True)
             plot_shap_importance(df_results, ax, exp_mn)
-            plt.savefig(os.path.join(output_dir, f"{base_name}_SHAP_Importance.png"), dpi=300, bbox_inches='tight')
+            plt.savefig(os.path.join(output_dir, f"{base_name}_SHAP_Importance.pdf"), dpi=600, bbox_inches='tight')
             plt.close(fig)
 
-            fig, ax = plt.subplots(figsize=(8, 6), constrained_layout=True)
+            fig, ax = plt.subplots(figsize=(7.48, 5.0), constrained_layout=True)
             plot_response_surface_D_sigma(df_results, ax)
-            plt.savefig(os.path.join(output_dir, f"{base_name}_Response_Surface_Sigma.png"), dpi=300, bbox_inches='tight')
+            plt.savefig(os.path.join(output_dir, f"{base_name}_Response_Surface_Sigma.pdf"), dpi=600, bbox_inches='tight')
             plt.close(fig)
 
-            fig, ax = plt.subplots(figsize=(8, 6), constrained_layout=True)
+            fig, ax = plt.subplots(figsize=(7.48, 5.0), constrained_layout=True)
             plot_marginal_response(df_results, ax)
-            plt.savefig(os.path.join(output_dir, f"{base_name}_Marginal_Sigma.png"), dpi=300, bbox_inches='tight')
+            plt.savefig(os.path.join(output_dir, f"{base_name}_Marginal_Sigma.pdf"), dpi=600, bbox_inches='tight')
             plt.close(fig)
 
-            fig, ax = plt.subplots(figsize=(8, 6), constrained_layout=True)
+            fig, ax = plt.subplots(figsize=(7.48, 5.0), constrained_layout=True)
             plot_num_samples_marginal(df_results, ax)
-            plt.savefig(os.path.join(output_dir, f"{base_name}_Marginal_Samples.png"), dpi=300, bbox_inches='tight')
+            plt.savefig(os.path.join(output_dir, f"{base_name}_Marginal_Samples.pdf"), dpi=600, bbox_inches='tight')
             plt.close(fig)
 
             if exp_mn == 2 and 'gap_distance' in df_results.columns:
-                fig, ax = plt.subplots(figsize=(8, 6), constrained_layout=True)
+                fig, ax = plt.subplots(figsize=(7.48, 5.0), constrained_layout=True)
                 plot_gap_vs_distance_surface(df_results, ax)
-                plt.savefig(os.path.join(output_dir, f"{base_name}_Response_Surface_Gap.png"), dpi=300, bbox_inches='tight')
+                plt.savefig(os.path.join(output_dir, f"{base_name}_Response_Surface_Gap.pdf"), dpi=600, bbox_inches='tight')
                 plt.close(fig)
 
-                fig, ax = plt.subplots(figsize=(8, 6), constrained_layout=True)
+                fig, ax = plt.subplots(figsize=(7.48, 5.0), constrained_layout=True)
                 plot_gap_ratio_marginal(df_results, ax)
-                plt.savefig(os.path.join(output_dir, f"{base_name}_Marginal_Gap_Ratio.png"), dpi=300, bbox_inches='tight')
+                plt.savefig(os.path.join(output_dir, f"{base_name}_Marginal_Gap_Ratio.pdf"), dpi=600, bbox_inches='tight')
                 plt.close(fig)
             
             print(f"All standalone figures successfully generated for {base_name}.")

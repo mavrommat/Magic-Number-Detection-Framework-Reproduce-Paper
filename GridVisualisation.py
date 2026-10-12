@@ -194,7 +194,7 @@ def plot_corner_metric_continuous(df, file_name=None, metrics=['f1_score', 'reca
             output_dir = os.path.join("Synthetic Experiments", "Plots")
             os.makedirs(output_dir, exist_ok=True)
             
-            filepath = os.path.join(output_dir, f"CP_{file_name}_dpi{dpi}_{metric}.png")
+            filepath = os.path.join(output_dir, f"CP_{file_name}_dpi{dpi}_{metric}.pdf")
             plt.savefig(filepath, dpi=dpi, bbox_inches='tight')
             
         plt.close(fig)
@@ -306,9 +306,9 @@ def plot_standalone_kdes(csv_path, f1_threshold=0.95):
         output_dir = os.path.join("Synthetic Experiments", "Plots")
         os.makedirs(output_dir, exist_ok=True)
         
-        save_filename = os.path.join(output_dir, f"{base_name}_{param}_kde_scaled.png")
+        save_filename = os.path.join(output_dir, f"{base_name}_{param}_kde_scaled.pdf")
         plt.savefig(save_filename, 
-                    format='png',
+                    format='pdf',
                     dpi=600,  
                     bbox_inches='tight',
                     pad_inches=0.02)
@@ -321,7 +321,6 @@ if __name__ == "__main__":
     try:
         df_export = pd.read_csv(output_filename)
         print(f"Successfully loaded {len(df_export)} runs from {output_filename}")
-        """
         plot_corner_metric_continuous(
                     df=df_export, 
                     file_name=f"Monte_Carlo_Grid_{df_export['expected_count'].iloc[0]}_MN", 
@@ -330,7 +329,6 @@ if __name__ == "__main__":
                     dpi=300, 
                     save_fig=True
                 )
-        """
         
        
         plot_standalone_kdes(csv_path=output_filename)

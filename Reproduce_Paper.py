@@ -6,6 +6,8 @@ import logging
 logging.getLogger('matplotlib.font_manager').setLevel(logging.WARNING)
 import os
 from pathlib import Path
+
+from PlotsKDE import plot_artificial_examples
 import ANOVA
 import GridVisualisation as gv
 from ParameterGrid import ParameterGrid
@@ -90,7 +92,7 @@ def run_synthetic_data_grid_search_2_MN():
             metrics=['f1_score', 'recall', 'precision'], 
             #metrics=['f1_score'],
             f1_threshold=0.95, 
-            dpi=300, 
+            dpi=600, 
             save_fig=True
         )                    
         
@@ -170,7 +172,7 @@ def run_synthetic_data_grid_search_1_MN():
             metrics=['f1_score', 'recall', 'precision'], 
             #metrics=['f1_score'],
             f1_threshold=0.95, 
-            dpi=300, 
+            dpi=600, 
             save_fig=True
         )                    
         
@@ -202,23 +204,26 @@ if __name__ == "__main__":
     # Run Sythetic Experiments 
     #==============================
     if RUN_SYNTHETIC_ANALYSIS:
+
+        #plot_artificial_examples()
+
         # Run the grid search for 2 magic numbers
-        run_synthetic_data_grid_search_2_MN()
+        #run_synthetic_data_grid_search_2_MN()
         
         # Run the grid search for 1 magic number
-        run_synthetic_data_grid_search_1_MN()
+        #run_synthetic_data_grid_search_1_MN()
 
         # Generate the SHAP and marginal response plots
         print("\nInitiating statistical plotting...")
         #generate_all_plots()
 
         print("\nInitiating N-Way ANOVA Analysis...")
-        #data_dir = os.path.join("Synthetic Experiments", "Data")
+        data_dir = os.path.join("Synthetic Experiments", "Data")
         #run_n_way_anova(os.path.join(data_dir, "1_magic_numbers_results.csv"), is_dual=False)
         #run_n_way_anova(os.path.join(data_dir, "2_magic_numbers_results.csv"), is_dual=True)
 
         print("\nInitiating Scalability Benchmark...")
-        #run_scalability_benchmark()
+        run_scalability_benchmark()
 
     #==============================
     # Run Real-World Analysis 

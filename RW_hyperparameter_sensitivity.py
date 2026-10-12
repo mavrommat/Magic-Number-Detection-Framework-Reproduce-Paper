@@ -116,8 +116,8 @@ def Hyperparameter_Sensitivity(json_filepath: str):
 
         plt.tight_layout()
         safe_name = col_name.replace(" ", "_")
-        out_path = output_dir / f"Sensitivity_{safe_name}.png"
-        plt.savefig(out_path, dpi=300, bbox_inches="tight")
+        out_path = output_dir / f"Sensitivity_{safe_name}.pdf"
+        plt.savefig(out_path, dpi=600, bbox_inches="tight")
         plt.close()
         print(f"Saved Plot: {out_path}")
 

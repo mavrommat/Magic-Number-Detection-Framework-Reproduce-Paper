@@ -248,8 +248,8 @@ class ModelEvaluator:
         plt.ylim(0, 1.1)
         sns.despine()
         
-        plot1_path = self.plots_dir / f"{self.prefix}_Global_F1.png"
-        plt.savefig(plot1_path, dpi=300, bbox_inches="tight")
+        plot1_path = self.plots_dir / f"{self.prefix}_Global_F1.pdf"
+        plt.savefig(plot1_path, dpi=600, bbox_inches="tight")
         plt.close()
         print(f"Saved Plot: {plot1_path}")
 
@@ -284,8 +284,8 @@ class ModelEvaluator:
         sns.despine()
         plt.tight_layout()
 
-        plot2_path = self.plots_dir / f"{self.prefix}_F1_Distribution.png"
-        plt.savefig(plot2_path, dpi=300, bbox_inches="tight")
+        plot2_path = self.plots_dir / f"{self.prefix}_F1_Distribution.pdf"
+        plt.savefig(plot2_path, dpi=600, bbox_inches="tight")
         plt.close()
         print(f"Saved Plot: {plot2_path}")
 
@@ -318,8 +318,8 @@ class ModelEvaluator:
         sns.despine()
         plt.tight_layout()
 
-        plot3_path = self.plots_dir / f"{self.prefix}_Category_Performance.png"
-        plt.savefig(plot3_path, dpi=300, bbox_inches="tight")
+        plot3_path = self.plots_dir / f"{self.prefix}_Category_Performance.pdf"
+        plt.savefig(plot3_path, dpi=600, bbox_inches="tight")
         plt.close()
         print(f"Saved Plot: {plot3_path}")
 
@@ -357,8 +357,8 @@ class ModelEvaluator:
         sns.despine()
         plt.tight_layout()
 
-        plot4_path = self.plots_dir / f"{self.prefix}_Macro_vs_Micro_F1.png"
-        plt.savefig(plot4_path, dpi=300, bbox_inches="tight")
+        plot4_path = self.plots_dir / f"{self.prefix}_Macro_vs_Micro_F1.pdf"
+        plt.savefig(plot4_path, dpi=600, bbox_inches="tight")
         plt.close()
         print(f"Saved Plot: {plot4_path}")
 
