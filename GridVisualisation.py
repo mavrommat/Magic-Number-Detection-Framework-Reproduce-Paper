@@ -200,7 +200,6 @@ def plot_corner_metric_continuous(df, file_name=None, metrics=['f1_score', 'reca
         plt.close(fig)
 
 
-
 # Standalone KDEs
 def plot_standalone_kdes(csv_path, f1_threshold=0.95):
     print("Loading data and generating standalone KDE distributions...")
@@ -254,53 +253,57 @@ def plot_standalone_kdes(csv_path, f1_threshold=0.95):
         'ytick.labelsize': 7,
         'legend.fontsize': 7,
         'axes.linewidth': 0.8,
-        'lines.linewidth': 1.2,
+        'lines.linewidth': 1.5,
         'figure.dpi': 600
     })
 
-    def get_kde_data(data):
-        if len(data) > 1:
-            kde = gaussian_kde(data, bw_method=0.1)
-            x_vals = np.linspace(data.min(), data.max(), 500)
-            y_vals = kde.evaluate(x_vals)
-            return x_vals, y_vals
-        return None, None
-
     for param, label in zip(target_params, param_labels):
+        if param not in df.columns:
+            continue
+            
         fig, ax = plt.subplots(figsize=(fig_width, fig_height), constrained_layout=True)
         
         df_good = df[df['f1_score'] >= f1_threshold]
         df_bad = df[df['f1_score'] < f1_threshold]
 
-        x_bad, y_bad = get_kde_data(df_bad[param]) if not df_bad.empty else (None, None)
-        x_good, y_good = get_kde_data(df_good[param]) if not df_good.empty else (None, None)
+        # Shared x-axis grid across the full parameter range
+        x_grid = np.linspace(df[param].min(), df[param].max(), 500)
+        
+        # Evaluate KDE and weight by the proportion of runs in each group
+        total_runs = len(df)
+        y_bad = (gaussian_kde(df_bad[param], bw_method=0.1).evaluate(x_grid) * (len(df_bad) / total_runs)) if len(df_bad) > 1 else None
+        y_good = (gaussian_kde(df_good[param], bw_method=0.1).evaluate(x_grid) * (len(df_good) / total_runs)) if len(df_good) > 1 else None
 
+        # Find the global peak across both weighted curves to scale y-axis to [0, 1]
         max_y = 0
         if y_bad is not None: max_y = max(max_y, y_bad.max())
         if y_good is not None: max_y = max(max_y, y_good.max())
+        if max_y == 0: max_y = 1.0  # safety fallback
 
+        # Plot Low F1 (translucent fill alpha=0.25 + solid line alpha=0.9)
         if y_bad is not None:
             y_scaled_bad = y_bad / max_y
-            ax.plot(x_bad, y_scaled_bad, color='#e74c3c', label=f'Low $F_1$ (< {f1_threshold})')
-            ax.fill_between(x_bad, y_scaled_bad, color='#e74c3c', alpha=0.6)
+            ax.plot(x_grid, y_scaled_bad, color='#e74c3c', alpha=0.9, label=f'Low $F_1$ (< {f1_threshold})')
+            ax.fill_between(x_grid, 0, y_scaled_bad, color='#e74c3c', alpha=0.25)
             
+        # Plot Optimal F1 (translucent fill alpha=0.25 + solid line alpha=0.9)
         if y_good is not None:
             y_scaled_good = y_good / max_y
-            ax.plot(
-                x_good, 
-                y_scaled_good, 
-                color='#3498db', 
-                label=rf'Optimal $F_1$ ($\geq$ {f1_threshold})'
-            )
-            ax.fill_between(x_good, y_scaled_good, color='#3498db', alpha=0.6)
+            ax.plot(x_grid, y_scaled_good, color='#3498db', alpha=0.9, label=rf'Optimal $F_1$ ($\geq$ {f1_threshold})')
+            ax.fill_between(x_grid, 0, y_scaled_good, color='#3498db', alpha=0.25)
 
-        ax.set_ylim(0, 1.1)
-
-        ax.set_title(f'Relative Density Profile: {label}')
-        ax.set_xlabel(label)
-        ax.set_ylabel('Relative Density')
+        # Axis limits, ticks, and labels
+        ax.set_xlim(df[param].min(), df[param].max())
+        ax.set_ylim(0, 1.08)
         
-        ax.legend(loc='upper right', frameon=False)
+        ax.set_title(f'Density Profile: {label}', fontweight='bold', pad=6)
+        ax.set_xlabel(label, fontweight='bold')
+        ax.set_ylabel('Relative Density (Weighted)', fontweight='bold')
+        
+        # Ensure tick labels are explicitly visible
+        ax.tick_params(axis='both', which='major', labelbottom=True, labelleft=True)
+        
+        ax.legend(loc='upper right', frameon=True, facecolor='white', framealpha=0.7, edgecolor='none')
         ax.grid(True, linestyle='--', alpha=0.4, linewidth=0.5)
 
         output_dir = os.path.join("Synthetic Experiments", "Plots")
@@ -311,16 +314,17 @@ def plot_standalone_kdes(csv_path, f1_threshold=0.95):
                     format='pdf',
                     dpi=600,  
                     bbox_inches='tight',
-                    pad_inches=0.02)
+                    pad_inches=0.05)
         
         plt.close(fig)
 # Script Execution
 if __name__ == "__main__":
-    output_filename = "Synthetic Experiments/Data/2_magic_numbers_results.csv" 
+    output_filename = "Synthetic Experiments/Data/1_magic_numbers_results.csv" 
     
     try:
         df_export = pd.read_csv(output_filename)
         print(f"Successfully loaded {len(df_export)} runs from {output_filename}")
+        """
         plot_corner_metric_continuous(
                     df=df_export, 
                     file_name=f"Monte_Carlo_Grid_{df_export['expected_count'].iloc[0]}_MN", 
@@ -330,7 +334,28 @@ if __name__ == "__main__":
                     save_fig=True
                 )
         
-       
+       """
+        plot_standalone_kdes(csv_path=output_filename)
+        
+    except FileNotFoundError:
+        print(f"Error: '{output_filename}' not found. Make sure the CSV has been exported.")
+
+    output_filename = "Synthetic Experiments/Data/2_magic_numbers_results.csv" 
+        
+    try:
+        df_export = pd.read_csv(output_filename)
+        print(f"Successfully loaded {len(df_export)} runs from {output_filename}")
+        """
+        plot_corner_metric_continuous(
+                    df=df_export, 
+                    file_name=f"Monte_Carlo_Grid_{df_export['expected_count'].iloc[0]}_MN", 
+                    metrics=['f1_score', "recall", "precision"],
+                    f1_threshold=0.95, 
+                    dpi=300, 
+                    save_fig=True
+                )
+        
+        """
         plot_standalone_kdes(csv_path=output_filename)
         
     except FileNotFoundError:
