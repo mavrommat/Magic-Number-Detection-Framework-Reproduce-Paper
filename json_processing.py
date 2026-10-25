@@ -196,7 +196,7 @@ class ModelEvaluator:
                 """
         print(report)
 
-        # Low-Performance  Block
+        # Low Performance  
         low_perf = self.df[self.df["Framework_F1"] < 0.5]
         
         print(f"\n{'=' * 70}\nLOW-PERFORMANCE ANALYSIS\n{'=' * 70}")
@@ -210,7 +210,7 @@ class ModelEvaluator:
         else:
             print("\nNo columns with F1 < 0.5.")
 
-        # 3. Baseline-Win Analysis Block
+        # Baseline Win Analysis 
         baseline_wins = m["baseline_wins"]
         
         print(f"\n{'=' * 70}\nBASELINE-WIN ANALYSIS\n{'=' * 70}")
@@ -258,7 +258,6 @@ class ModelEvaluator:
             'ps.fonttype': 42
         }
 
-        # Unified publication color palette matching the scalability plot
         method_palette = {
             "Framework": "#2c3e50", 
             "IQR": "#e74c3c",       
@@ -284,7 +283,6 @@ class ModelEvaluator:
                 "Framework_F1": "Framework", "IQR_F1": "IQR", "ZScore_F1": "Z-Score"
             })
 
-            # Slightly taller per-category height (0.50) to accommodate larger fonts & bar labels
             num_cats = len(agg_df)
             fig3_height = max(3.6, num_cats * 0.50)
             fig3, ax3 = plt.subplots(figsize=(DOUBLE_COL_W, fig3_height))
@@ -300,7 +298,6 @@ class ModelEvaluator:
             
             ax3.set_xlim(0, 1.15)
             
-            # 1. Larger axis labels (11pt) and category/tick labels (10pt)
             ax3.set_xlabel("Mean F1 Score", fontsize=11, fontweight="bold", labelpad=6)
             ax3.set_ylabel("Astrophysical Category", fontsize=11, fontweight="bold", labelpad=6)
             ax3.tick_params(axis='y', labelsize=10)
