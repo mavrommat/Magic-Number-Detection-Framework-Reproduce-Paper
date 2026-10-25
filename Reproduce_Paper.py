@@ -2,11 +2,8 @@ import pandas as pd
 import numpy as np
 import random
 from random import seed
-import logging
-logging.getLogger('matplotlib.font_manager').setLevel(logging.WARNING)
 import os
 from pathlib import Path
-
 from PlotsKDE import plot_artificial_examples
 import ANOVA
 import GridVisualisation as gv
@@ -19,7 +16,14 @@ from json_processing import ModelEvaluator
 from RW_hyperparameter_sensitivity import Hyperparameter_Sensitivity
 from Magic_Numbers_Patterns import Magic_Numbers_Patterns
 
+import logging
+logging.getLogger('matplotlib.font_manager').setLevel(logging.WARNING)
+for lib in ["fontTools", "matplotlib", "PIL"]:
+    logging.getLogger(lib).setLevel(logging.WARNING)
 logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.WARNING)
+logging.getLogger("fontTools").setLevel(logging.WARNING)
+
 
 def run_synthetic_data_grid_search_2_MN():
     # Lock the seed for reproducibility
@@ -83,7 +87,8 @@ def run_synthetic_data_grid_search_2_MN():
         df_export.to_csv(output_filename, index=False)
             
         print(f"\nGrid search complete. Flattened metrics successfully saved to {output_filename}")
-    
+        """
+        # Extended analysis (KDE of all hyperparameters) the KDE are not scaled
         # Generate corner plots 
         print("Initiating automatic corner plot generation...")
         gv.plot_corner_metric_continuous(
@@ -95,7 +100,7 @@ def run_synthetic_data_grid_search_2_MN():
             dpi=600, 
             save_fig=True
         )                    
-        
+        """
         # Generate standalone KDE plots 
         print("Initiating automatic standalone KDE generation...")
         gv.plot_standalone_kdes(csv_path=output_filename)
@@ -163,7 +168,8 @@ def run_synthetic_data_grid_search_1_MN():
         df_export.to_csv(output_filename, index=False)
             
         print(f"\nGrid search complete. Flattened metrics successfully saved to {output_filename}")
-    
+        """
+        # Extended analysis (KDE of all hyperparameters) the KDE are not scaled
         # Generate corner plots 
         print("Initiating automatic corner plot generation...")
         gv.plot_corner_metric_continuous(
@@ -175,7 +181,8 @@ def run_synthetic_data_grid_search_1_MN():
             dpi=600, 
             save_fig=True
         )                    
-        
+        """
+
         # Generate standalone KDE plots 
         print("Initiating automatic standalone KDE generation...")
         gv.plot_standalone_kdes(csv_path=output_filename)
@@ -197,8 +204,11 @@ def run_json_processing_plots():
 
 if __name__ == "__main__":
 
-    RUN_SYNTHETIC_ANALYSIS = True
-    RUN_REAL_WORLD_ANALYSIS = False
+    RUN_SYNTHETIC_ANALYSIS = False
+    RUN_REAL_WORLD_ANALYSIS = True
+
+    # The most time-consuming part of the workflow can be adjusted 
+    RUN_SCALABILITY_BENCHMARK = True
 
     #==============================
     # Run Sythetic Experiments 
@@ -222,15 +232,22 @@ if __name__ == "__main__":
         run_n_way_anova(os.path.join(data_dir, "1_magic_numbers_results.csv"), is_dual=False)
         run_n_way_anova(os.path.join(data_dir, "2_magic_numbers_results.csv"), is_dual=True)
 
-        print("\nInitiating Scalability Benchmark...")
-        run_scalability_benchmark()
+        if RUN_SCALABILITY_BENCHMARK: 
+            print("\nInitiating Scalability Benchmark...")
+            run_scalability_benchmark(DATASET_SIZES = [ 1000, 
+                                                        10000,
+                                                        100000,
+                                                        1000000,
+                                                        10000000, 
+                                                    ]
+                                        ,ITERATIONS_PER_SIZE = 3)
 
     #==============================
     # Run Real-World Analysis 
     #==============================
     if RUN_REAL_WORLD_ANALYSIS:
         print("\nInitiating Real-World Data Analysis...")
-        run_real_world_analysis()
+        #run_real_world_analysis()
 
         print("\nInitiating JSON Processing and Plot Generation...")
         run_json_processing_plots()

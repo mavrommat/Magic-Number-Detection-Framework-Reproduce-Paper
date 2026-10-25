@@ -230,137 +230,144 @@ class ModelEvaluator:
         else:
             print("\nNo baseline outperforms the framework.")
 
-    def _generate_plots(self, m):
-        sns.set_theme(style="whitegrid", context="talk")
-        
-        # Global F1 Comparison
-        plt.figure(figsize=(9, 7))
-        f1_data = pd.DataFrame({
-            "Method": ["Framework", "IQR", "Z-Score"],
-            "Mean F1": [m['macro']['f1'], m['baselines']['iqr_f1'], m['baselines']['zscore_f1']]
-        })
-        ax1 = sns.barplot(data=f1_data, x="Method", y="Mean F1", palette=["#2ca02c", "#9e9e9e", "#9e9e9e"])
-        
-        for container in ax1.containers:
-            ax1.bar_label(container, fmt="%.3f", padding=5, fontsize=14, fontweight="bold", color="#0d47a1")
+    def _generate_plots(self, m, include_titles=False):
+        SINGLE_COL_W = 3.54
+        DOUBLE_COL_W = 7.48
 
-        plt.title("Global F1 Score Comparison", pad=20, fontweight="bold")
-        plt.ylim(0, 1.1)
-        sns.despine()
-        
-        plot1_path = self.plots_dir / f"{self.prefix}_Global_F1.pdf"
-        plt.savefig(plot1_path, dpi=600, bbox_inches="tight")
-        plt.close()
-        print(f"Saved Plot: {plot1_path}")
-
-        # F1 Distribution
-        distribution_long = pd.DataFrame({
-            "Framework": self.df["Framework_F1"],
-            "IQR": self.df["IQR_F1"],
-            "Z-Score": self.df["ZScore_F1"],
-        }).melt(var_name="Method", value_name="F1 Score")
-
-        plt.figure(figsize=(10, 7))
-        violin_colors = {
-            "Framework": "#2ca02c", 
-            "IQR": "#ff9800",       
-            "Z-Score": "#2196f3",   
+        elsevier_rc = {
+            'font.family': 'sans-serif',
+            'font.sans-serif': ['Arial', 'Helvetica', 'DejaVu Sans'],
+            'font.size': 8,
+            'axes.labelsize': 9,
+            'axes.titlesize': 9,
+            'xtick.labelsize': 8,
+            'ytick.labelsize': 8,
+            'legend.fontsize': 8,
+            'axes.labelcolor': 'black',
+            'xtick.color': 'black',
+            'ytick.color': 'black',
+            'text.color': 'black',
+            'figure.facecolor': 'white',
+            'axes.facecolor': 'white',
+            'axes.edgecolor': '#333333',
+            'axes.linewidth': 0.8,
+            'grid.color': '#cccccc',
+            'grid.linestyle': '--',
+            'grid.linewidth': 0.5,
+            'pdf.fonttype': 42,  
+            'ps.fonttype': 42
         }
 
-        ax2 = sns.violinplot(
-            data=distribution_long, x="Method", y="F1 Score",
-            palette=violin_colors, cut=0, inner="stick"
-        )
+        # Unified publication color palette matching the scalability plot
+        method_palette = {
+            "Framework": "#2c3e50", 
+            "IQR": "#e74c3c",       
+            "Z-Score": "#95a5a6"     
+        }
 
-        means = [m['macro']['f1'], m['baselines']['iqr_f1'], m['baselines']['zscore_f1']]
-        for i, mean_val in enumerate(means):
-            ax2.text(i, 1.02, f"{mean_val:.3f}", ha="center", va="bottom", 
-                     fontsize=14, fontweight="bold", color="#0d47a1")
+        sns.reset_defaults()
+        with plt.rc_context(elsevier_rc):
+            
+            # Category Level F1 
+            agg_df = (
+                self.df.groupby("Category")[["Framework_F1", "ZScore_F1", "IQR_F1"]]
+                .mean()
+                .sort_values("Framework_F1", ascending=False)
+                .reset_index()
+            )
 
-        plt.title("F1 Score Distribution Across Evaluated Columns", pad=20, fontweight="bold")
-        plt.ylabel("F1 Score")
-        plt.xlabel("")
-        plt.ylim(0, 1.1) 
-        sns.despine()
-        plt.tight_layout()
+            melted_df = pd.melt(
+                agg_df, id_vars="Category", value_vars=["Framework_F1", "IQR_F1", "ZScore_F1"],
+                var_name="Detection_Method", value_name="Mean_F1_Score"
+            )
+            melted_df["Detection_Method"] = melted_df["Detection_Method"].replace({
+                "Framework_F1": "Framework", "IQR_F1": "IQR", "ZScore_F1": "Z-Score"
+            })
 
-        plot2_path = self.plots_dir / f"{self.prefix}_F1_Distribution.pdf"
-        plt.savefig(plot2_path, dpi=600, bbox_inches="tight")
-        plt.close()
-        print(f"Saved Plot: {plot2_path}")
+            # Slightly taller per-category height (0.50) to accommodate larger fonts & bar labels
+            num_cats = len(agg_df)
+            fig3_height = max(3.6, num_cats * 0.50)
+            fig3, ax3 = plt.subplots(figsize=(DOUBLE_COL_W, fig3_height))
+            ax3.grid(axis='x', linestyle='--', alpha=0.4, zorder=0)
 
-        # Category Level F1
-        agg_df = self.df.groupby("Category")[["Framework_F1", "ZScore_F1", "IQR_F1"]].mean().reset_index()
+            sns.barplot(
+                data=melted_df, x="Mean_F1_Score", y="Category",
+                hue="Detection_Method", palette=method_palette, ax=ax3, zorder=3
+            )
 
-        melted_df = pd.melt(
-            agg_df, id_vars="Category", value_vars=["Framework_F1", "ZScore_F1", "IQR_F1"],
-            var_name="Detection_Method", value_name="Mean_F1_Score"
-        )
-        melted_df["Detection_Method"] = melted_df["Detection_Method"].replace({
-            "Framework_F1": "Framework", "IQR_F1": "IQR", "ZScore_F1": "Z-Score"
-        })
+            if include_titles:
+                ax3.set_title("F1 Score by Astrophysical Category", pad=22, fontsize=12, fontweight="bold")
+            
+            ax3.set_xlim(0, 1.15)
+            
+            # 1. Larger axis labels (11pt) and category/tick labels (10pt)
+            ax3.set_xlabel("Mean F1 Score", fontsize=11, fontweight="bold", labelpad=6)
+            ax3.set_ylabel("Astrophysical Category", fontsize=11, fontweight="bold", labelpad=6)
+            ax3.tick_params(axis='y', labelsize=10)
+            ax3.tick_params(axis='x', labelsize=10)
+            ax3.legend(
+                title=None,
+                loc="lower center",
+                bbox_to_anchor=(0.5, 1.01),
+                ncol=3,
+                fontsize=9.5,
+                frameon=True,
+                facecolor="white",
+                edgecolor="#cccccc"
+            )
 
-        plt.figure(figsize=(10, 8))
-        ax3 = sns.barplot(
-            data=melted_df, x="Mean_F1_Score", y="Category",
-            hue="Detection_Method", palette=violin_colors
-        )
+            for container in ax3.containers:
+                ax3.bar_label(container, fmt="%.2f", padding=3, fontsize=8.5, color="black")
 
-        plt.title("F1 Score by Astrophysical Category", pad=20, fontweight="bold")
-        plt.xlim(0, 1.15)
-        plt.xlabel("Mean F1 Score", fontweight="bold")
-        plt.ylabel("")
-        plt.legend(title="Method", bbox_to_anchor=(1.01, 1), loc="upper left")
+            sns.despine(ax=ax3)
+            fig3.tight_layout()
 
-        for container in ax3.containers:
-            ax3.bar_label(container, fmt="%.2f", padding=3, fontsize=10)
+            plot3_path = self.plots_dir / f"{self.prefix}_Category_Performance.pdf"
+            fig3.savefig(plot3_path, dpi=1000, bbox_inches="tight", pad_inches=0.05, facecolor="white")
+            plt.close(fig3)
+            print(f"Saved Plot: {plot3_path}")
 
-        sns.despine()
-        plt.tight_layout()
+            # Macro - Micro F1 
+            total_n = self.df["N"].sum()
+            zscore_micro_f1 = (self.df["ZScore_F1"] * self.df["N"]).sum() / total_n if total_n > 0 else 0.0
+            iqr_micro_f1 = (self.df["IQR_F1"] * self.df["N"]).sum() / total_n if total_n > 0 else 0.0
 
-        plot3_path = self.plots_dir / f"{self.prefix}_Category_Performance.pdf"
-        plt.savefig(plot3_path, dpi=600, bbox_inches="tight")
-        plt.close()
-        print(f"Saved Plot: {plot3_path}")
+            macro_micro_df = pd.DataFrame([
+                {"Method": "Framework", "Metric": "Macro F1", "Score": m['macro']['f1']},
+                {"Method": "Framework", "Metric": "Micro F1", "Score": m['micro']['f1']},
+                {"Method": "IQR", "Metric": "Macro F1", "Score": m['baselines']['iqr_f1']},
+                {"Method": "IQR", "Metric": "Micro F1", "Score": iqr_micro_f1},
+                {"Method": "Z-Score", "Metric": "Macro F1", "Score": m['baselines']['zscore_f1']},
+                {"Method": "Z-Score", "Metric": "Micro F1", "Score": zscore_micro_f1},
+            ])
 
-        # Macro vs Micro F1 
-        total_n = self.df["N"].sum()
-        zscore_micro_f1 = (self.df["ZScore_F1"] * self.df["N"]).sum() / total_n if total_n > 0 else 0.0
-        iqr_micro_f1 = (self.df["IQR_F1"] * self.df["N"]).sum() / total_n if total_n > 0 else 0.0
+            fig4, ax4 = plt.subplots(figsize=(SINGLE_COL_W, 2.7))
+            ax4.grid(axis='y', linestyle='--', alpha=0.4, zorder=0)
+            
+            macro_micro_colors = {"Macro F1": "#2c3e50", "Micro F1": "#95a5a6"}
 
-        macro_micro_df = pd.DataFrame([
-            {"Method": "Framework", "Metric": "Macro F1", "Score": m['macro']['f1']},
-            {"Method": "Framework", "Metric": "Micro F1", "Score": m['micro']['f1']},
-            {"Method": "IQR", "Metric": "Macro F1", "Score": m['baselines']['iqr_f1']},
-            {"Method": "IQR", "Metric": "Micro F1", "Score": iqr_micro_f1},
-            {"Method": "Z-Score", "Metric": "Macro F1", "Score": m['baselines']['zscore_f1']},
-            {"Method": "Z-Score", "Metric": "Micro F1", "Score": zscore_micro_f1},
-        ])
+            sns.barplot(
+                data=macro_micro_df, x="Method", y="Score",
+                hue="Metric", palette=macro_micro_colors, width=0.65, ax=ax4, zorder=3
+            )
 
-        plt.figure(figsize=(10, 6))
-        macro_micro_colors = {"Macro F1": "#9e9e9e", "Micro F1": "#424242"}
+            if include_titles:
+                ax4.set_title("Macro vs. Micro F1 Comparison", pad=8, fontweight="bold")
+            ax4.set_ylim(0, 1.18)
+            ax4.set_ylabel("F1 Score", fontweight="bold", labelpad=5)
+            ax4.set_xlabel("Detection Method", fontweight="bold", labelpad=5)
+            ax4.legend(title=None, loc="upper right", frameon=False)
 
-        ax4 = sns.barplot(
-            data=macro_micro_df, x="Method", y="Score",
-            hue="Metric", palette=macro_micro_colors
-        )
+            for container in ax4.containers:
+                ax4.bar_label(container, fmt="%.3f", padding=2, fontsize=7, fontweight="bold", color="black")
 
-        plt.ylim(0, 1.1)
-        plt.ylabel("F1 Score")
-        plt.xlabel("")
-        plt.title("Macro vs Micro F1 comparison across detection methods", pad=20, fontweight="bold")
-        plt.legend(bbox_to_anchor=(1.01, 1), loc="upper left")
+            sns.despine(ax=ax4)
+            fig4.tight_layout()
 
-        for container in ax4.containers:
-            ax4.bar_label(container, fmt="%.3f", padding=3, fontsize=11, fontweight="bold")
-
-        sns.despine()
-        plt.tight_layout()
-
-        plot4_path = self.plots_dir / f"{self.prefix}_Macro_vs_Micro_F1.pdf"
-        plt.savefig(plot4_path, dpi=600, bbox_inches="tight")
-        plt.close()
-        print(f"Saved Plot: {plot4_path}")
+            plot4_path = self.plots_dir / f"{self.prefix}_Macro_vs_Micro_F1.pdf"
+            fig4.savefig(plot4_path, dpi=1000, bbox_inches="tight", pad_inches=0.05, facecolor="white")
+            plt.close(fig4)
+            print(f"Saved Plot: {plot4_path}")
 
     def _export_data(self, m):
         df_export = self.df.copy()

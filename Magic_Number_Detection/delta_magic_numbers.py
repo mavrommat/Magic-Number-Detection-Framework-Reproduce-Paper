@@ -340,7 +340,6 @@ class DeltaMagicNumbers:
                 
                 # If the overlap returned is valid and below threshold
                 if overlap_percentage is not None and overlap_percentage <= overlap_threshold:
-                    # Use .extend() to unpack the array into a flat list of numbers
                     magic_non_extreme.extend(np.unique(candidate_arr).tolist())
 
 
@@ -365,11 +364,15 @@ class DeltaMagicNumbers:
         min_val = min(small_array.min(), big_array.min())
         max_val = max(small_array.max(), big_array.max())
         
-        # Original: x = np.linspace(min_val - 1, max_val + 1, 1000)
+        x = np.linspace(min_val - 1, max_val + 1, 10000) # O(n) complexity for 10,000 points is manageable and provides a good approximation
+        """
+        O(n^2) complexity for the overlap calculation is not efficient for large datasets.
+        Instead, we can use a grid-based approach to approximate the overlap area.
+
         grid_points = np.linspace(min_val - 1, max_val + 1, 5000)
         x = np.unique(np.concatenate((grid_points, small_array, big_array)))
         x.sort()
-        
+        """
         small_pdf = kde_small(x)
         big_pdf = kde_big(x)
         
