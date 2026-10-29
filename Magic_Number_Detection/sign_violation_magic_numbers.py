@@ -1,34 +1,37 @@
 import pandas as pd
 import numpy as np
 
-def sign_violation_magic_numbers(data_arr, sign_violation_theshold=3):
-    threshold = sign_violation_theshold
+import numpy as np
+
+def sign_violation_magic_numbers(data_arr, sign_violation_threshold=3):
+    k = sign_violation_threshold
 
     unique_vals, counts = np.unique(data_arr, return_counts=True)
-    
+
+    # Enough values guard
+    if len(unique_vals) <= 2 * k:
+        return []
+
     count_map = dict(zip(unique_vals, counts))
 
-    data_arr_unique_sorted = np.sort(unique_vals)
-
-    # identify the bulk of the data vs the extremes
-    pos_data_arr_unique_sorted = data_arr_unique_sorted[threshold:]
-    neg_data_arr_unique_sorted = data_arr_unique_sorted[:-threshold]
-
-    # candidates for output
-    test_values = list(data_arr_unique_sorted[:threshold]) + list(data_arr_unique_sorted[-threshold:])
+    # Separate the tails and the inner core
+    lower_tail = unique_vals[:k]
+    upper_tail = unique_vals[-k:]
+    inner_core = unique_vals[k:-k]
 
     sign_violating_magic_numbers = []
 
-    # Check for sign violations ensure the count > 1
-    if all(x > 0 for x in pos_data_arr_unique_sorted):
+    # Check for negative magic numbers in a non-negative (>= 0) core distribution
+    if np.all(inner_core >= 0):
         sign_violating_magic_numbers.extend([
-            val for val in test_values 
+            val for val in lower_tail 
             if val < 0 and count_map[val] > 1
         ])
-    elif all(x < 0 for x in neg_data_arr_unique_sorted):
+    # Check for positive magic numbers in a non-positive (<= 0) core distribution
+    elif np.all(inner_core <= 0):
         sign_violating_magic_numbers.extend([
-            val for val in test_values 
+            val for val in upper_tail 
             if val > 0 and count_map[val] > 1
         ])
-        
+
     return sign_violating_magic_numbers

@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import time
 import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import seaborn as sns
 from tqdm import tqdm
 import logging
@@ -74,9 +76,7 @@ class ScalabilityBenchmark:
         print("\nBenchmarking complete.")
         return pd.DataFrame(self.results)
 
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-import numpy as np
+
 
 def plot_scalability(df, save_path, column_type='single'):
     fig_width = 3.54 if column_type == 'single' else 7.48
@@ -118,7 +118,7 @@ def plot_scalability(df, save_path, column_type='single'):
 
         ax.plot(x_theo, theoretical_nlogn, 
                 linestyle='--', linewidth=1.5, color='#e74c3c', 
-                label=r'Theoretical $O(n \log n)$')
+                label=r'Theoretical $\mathcal{O}(n\,\log n)$')
         
         # 3. Scales & Limits
         ax.set_xscale('log')
@@ -172,15 +172,4 @@ def run_scalability_benchmark(DATASET_SIZES, ITERATIONS_PER_SIZE):
 
 if __name__ == "__main__":
 
-    DATASET_SIZES = [
-                    10000,
-                    50000, 
-                    100000,
-                    500000,
-                    1000000,
-                    5000000,
-                    10000000
-                    ]
-    ITERATIONS_PER_SIZE = 3
-    
-    run_scalability_benchmark(DATASET_SIZES, ITERATIONS_PER_SIZE)
+    run_scalability_benchmark(DATASET_SIZES = [ 1000, 10000, 100000, 1000000, 10000000 ] ,ITERATIONS_PER_SIZE = 3)

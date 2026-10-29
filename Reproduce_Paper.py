@@ -205,16 +205,15 @@ def run_json_processing_plots():
 if __name__ == "__main__":
 
     RUN_SYNTHETIC_ANALYSIS = False
+
     RUN_REAL_WORLD_ANALYSIS = True
 
-    # The most time-consuming part of the workflow can be adjusted 
-    RUN_SCALABILITY_BENCHMARK = True
+    
 
     #==============================
     # Run Sythetic Experiments 
     #==============================
     if RUN_SYNTHETIC_ANALYSIS:
-
         plot_artificial_examples()
 
         # Run the grid search for 2 magic numbers
@@ -231,23 +230,17 @@ if __name__ == "__main__":
         data_dir = os.path.join("Synthetic Experiments", "Data")
         run_n_way_anova(os.path.join(data_dir, "1_magic_numbers_results.csv"), is_dual=False)
         run_n_way_anova(os.path.join(data_dir, "2_magic_numbers_results.csv"), is_dual=True)
-
-        if RUN_SCALABILITY_BENCHMARK: 
-            print("\nInitiating Scalability Benchmark...")
-            run_scalability_benchmark(DATASET_SIZES = [ 1000, 
-                                                        10000,
-                                                        100000,
-                                                        1000000,
-                                                        10000000, 
-                                                    ]
-                                        ,ITERATIONS_PER_SIZE = 3)
+        
+        print("\nInitiating Scalability Benchmark...")
+        run_scalability_benchmark(DATASET_SIZES = [1000, 10000, 100000, 1000000, 10000000] ,ITERATIONS_PER_SIZE = 3)
+                                                    
 
     #==============================
     # Run Real-World Analysis 
     #==============================
     if RUN_REAL_WORLD_ANALYSIS:
         print("\nInitiating Real-World Data Analysis...")
-        run_real_world_analysis()
+        #run_real_world_analysis()
 
         print("\nInitiating JSON Processing and Plot Generation...")
         run_json_processing_plots()
