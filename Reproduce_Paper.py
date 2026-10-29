@@ -240,7 +240,7 @@ if __name__ == "__main__":
     #==============================
     if RUN_REAL_WORLD_ANALYSIS:
         print("\nInitiating Real-World Data Analysis...")
-        #run_real_world_analysis()
+        run_real_world_analysis()
 
         print("\nInitiating JSON Processing and Plot Generation...")
         run_json_processing_plots()
