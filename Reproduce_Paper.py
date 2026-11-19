@@ -12,7 +12,7 @@ from Synthetic_Plots_Shap_Marginal import generate_all_plots
 from ANOVA import run_n_way_anova
 from Scalability import run_scalability_benchmark
 from PaperWorkflowMagicNumbers import run_real_world_analysis 
-from json_processing import ModelEvaluator
+from Json_processing import ModelEvaluator
 from RW_hyperparameter_sensitivity import Hyperparameter_Sensitivity
 from Magic_Numbers_Patterns import Magic_Numbers_Patterns
 from Bias_analysis import Bias_analysis
@@ -194,7 +194,7 @@ def run_json_processing_plots():
     evaluator = ModelEvaluator(
         json_filepath=str(input_file),
         sign_opt=3,
-        gauss_opt=0.1,
+        gauss_opt=0.01,
         overlap_opt=0.1,
         plots_dir=str(Path("Real_World_Analysis") / "Plots"),
         data_dir=str(Path("Real_World_Analysis") / "data")
@@ -206,18 +206,16 @@ def run_json_processing_plots():
     
 if __name__ == "__main__":
 
-    RUN_SYNTHETIC_ANALYSIS = True
+    RUN_SYNTHETIC_ANALYSIS = False
 
-    RUN_REAL_WORLD_ANALYSIS = False
+    RUN_REAL_WORLD_ANALYSIS = True
 
 
     #==============================
     # Run Sythetic Experiments 
     #==============================
     if RUN_SYNTHETIC_ANALYSIS:
-        
         plot_artificial_examples()
-
         Bias_analysis()
         
         # Run the grid search for 2 magic numbers
@@ -225,11 +223,10 @@ if __name__ == "__main__":
         
         # Run the grid search for 1 magic number
         run_synthetic_data_grid_search_1_MN()
-
         # Generate the SHAP and marginal response plots
         print("\nInitiating statistical plotting...")
         generate_all_plots()
-        
+
         print("\nInitiating N-Way ANOVA Analysis...")
         data_dir = os.path.join("Synthetic Experiments", "Data")
         run_n_way_anova(os.path.join(data_dir, "1_magic_numbers_results.csv"), is_dual=False)
@@ -237,7 +234,6 @@ if __name__ == "__main__":
         
         print("\nInitiating Scalability Benchmark...")
         run_scalability_benchmark(DATASET_SIZES = [1000, 10000, 100000, 1000000, 10000000] ,ITERATIONS_PER_SIZE = 3)
-                                           
 
     #==============================
     # Run Real-World Analysis 
@@ -258,7 +254,7 @@ if __name__ == "__main__":
         Magic_Numbers_Patterns(
                 json_filepath=str(json_path),
                 sign_opt=3,       
-                gauss_opt=0.1,
+                gauss_opt=0.01,
                 overlap_opt=0.1
             )
 

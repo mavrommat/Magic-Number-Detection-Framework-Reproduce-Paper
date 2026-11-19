@@ -145,6 +145,13 @@ class ModelEvaluator:
                         "MCC": mcc,
                         "FPR": fp / (fp + tn) if fp + tn > 0 else 0.0,
                         "Zero_FP": fp == 0,
+                        "Has_Ground_Truth": bool(
+                            column_metrics.get(
+                                "Has_Ground_Truth",
+                                len(column_metrics.get("Ground Truth Magic Numbers") or []) > 0,
+                            )
+                        ),
+                        "Processed_By_Algorithm": column_metrics.get("Processed by Algorithm", "Yes") == "Yes",
                         "String_Detections": set(column_metrics.get("Magic Numbers String Process", []) or []),
                         "Sign_Detections": set(column_metrics.get("Magic Numbers Sign Violation", []) or []),
                         "Delta_Detections": set(column_metrics.get("Magic Numbers Delta", []) or []),
@@ -205,6 +212,27 @@ class ModelEvaluator:
         total_tp, total_fp, total_fn = int(df["TP"].sum()), int(df["FP"].sum()), int(df["FN"].sum())
         micro_prec, micro_rec, micro_f1 = self._pooled_f1(total_tp, total_fp, total_fn)
 
+        contam_df = df[df["Has_Ground_Truth"]]
+        clean_df = df[~df["Has_Ground_Truth"]]
+        bypassed_contam = contam_df[~contam_df["Processed_By_Algorithm"]]
+
+        c_tp, c_fp, c_fn = int(contam_df["TP"].sum()), int(contam_df["FP"].sum()), int(contam_df["FN"].sum())
+        c_micro_prec, c_micro_rec, c_micro_f1 = self._pooled_f1(c_tp, c_fp, c_fn)
+
+        stratified = {
+            "contam_cols": len(contam_df),
+            "contam_macro_prec": float(contam_df["Framework_Precision"].mean()),
+            "contam_macro_rec": float(contam_df["Framework_Recall"].mean()),
+            "contam_macro_f1": float(contam_df["Framework_F1"].mean()),
+            "contam_catalog_macro_f1": float(contam_df.groupby("Catalog")["Framework_F1"].mean().mean()),
+            "contam_micro_f1": float(c_micro_f1),
+            "bypassed_contam_penalized": len(bypassed_contam),
+            "clean_cols": len(clean_df),
+            "clean_col_fpr": float((clean_df["FP"] > 0).mean() * 100.0) if not clean_df.empty else 0.0,
+            "clean_zero_fp_rate": float((clean_df["FP"] == 0).mean() * 100.0) if not clean_df.empty else 100.0,
+            
+        }
+
         category_summary = (
             df.groupby("Category")
             .agg(
@@ -235,6 +263,7 @@ class ModelEvaluator:
                 "fpr": df["FPR"].mean(),
                 "zero_fp_rate": df["Zero_FP"].mean() * 100,
             },
+            "stratified": stratified,
             "baselines": baselines_summary,
         }
 
@@ -278,6 +307,17 @@ class ModelEvaluator:
                 Macro MCC                : {m['macro']['mcc']:.4f}
                 Macro FPR                : {m['macro']['fpr']:.6f}
                 Zero-FP Column Rate      : {m['macro']['zero_fp_rate']:.2f}%
+
+                Stratified Evaluation (Contaminated vs. Clean):
+                Contaminated Columns     : {m['stratified']['contam_cols']} (Bypassed w/ F1=0: {m['stratified']['bypassed_contam_penalized']})
+                Contam. Macro Precision  : {m['stratified']['contam_macro_prec']:.4f}
+                Contam. Macro Recall     : {m['stratified']['contam_macro_rec']:.4f}
+                Contam. Macro F1         : {m['stratified']['contam_macro_f1']:.4f}
+                Contam. Catalog-Macro F1 : {m['stratified']['contam_catalog_macro_f1']:.4f}
+                Contam. Micro F1         : {m['stratified']['contam_micro_f1']:.4f}
+                Clean Columns            : {m['stratified']['clean_cols']}
+                Clean-Column FPR         : {m['stratified']['clean_col_fpr']:.2f}%
+                Clean Zero-FP Rate       : {m['stratified']['clean_zero_fp_rate']:.2f}%
                 """
         print(report)
 
@@ -516,7 +556,7 @@ if __name__ == "__main__":
     evaluator = ModelEvaluator(
         json_filepath="Real_World_Analysis/grid_search_results.json",
         sign_opt=3,
-        gauss_opt=0.1,
+        gauss_opt=0.01,
         overlap_opt=0.1,
     )
     results = evaluator.run_pipeline()

@@ -675,9 +675,7 @@ class PaperProcessor:
         # Per Section 4.1 of Manuscript.tex and _calc_metrics:
         # When no ground-truth magic numbers exist and no false positives are predicted,
         # a correct non-detection is defined as Precision = Recall = F1 = 1.0.
-        if tp == 0 and fp == 0 and fn == 0 and not ground_truth_values:
-            precision = recall = f1_score = 1.0
-        elif tp == 0 and fp == 0 and fn == 0:
+        if tp == 0 and fp == 0 and fn == 0:
             precision = recall = f1_score = 1.0
         else:
             precision = tp / (tp + fp) if tp + fp else 0.0
@@ -716,12 +714,19 @@ class PaperProcessor:
             except TypeError:
                 unique_cnt = len(self._unique_values(self.df[resolved_col].tolist()))
 
+            res_key = (
+                resolved_col
+                if resolved_col in master_results
+                else (col_name if col_name in master_results else None)
+            )
+
             column_metadata = {
                 "Num_Samples": int(len(self.df)),
                 "Unique_Values": unique_cnt,
+                "Has_Ground_Truth": len(self._unique_values(ground_truth)) > 0,
+                "Processed_By_Algorithm": res_key is not None,
             }
-
-            res_key = resolved_col if resolved_col in master_results else (col_name if col_name in master_results else None)
+            
             if res_key is None:
                 alg_tp, alg_fp, alg_fn, alg_p, alg_r, alg_f1 = self._calc_metrics([], ground_truth)
                 unique_metrics = {

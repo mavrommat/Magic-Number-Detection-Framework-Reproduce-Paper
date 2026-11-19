@@ -1,29 +1,40 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import os
 
-def plot_artificial_examples():
-    fig_width = 3.54 
-    fig_height = 2.75 
+
+def plot_artificial_examples(dist_type='normal'):
+    fig_width = 3.54
+    fig_height = 2.65
 
     plt.rcParams.update({
-        'font.family': 'serif',
-        'font.serif': ['Times New Roman', 'Times', 'DejaVu Serif'],
-        'font.size': 8,             
-        'axes.labelsize': 9,        
-        'axes.labelweight': 'bold', 
-        'legend.fontsize': 8,
-        'xtick.labelsize': 8,
-        'ytick.labelsize': 8,
-        'figure.dpi': 300,          
-        'axes.linewidth': 0.5
+        'font.family': 'sans-serif',
+        'font.sans-serif': ['Arial', 'Helvetica', 'DejaVu Sans'],
+        'font.size': 8,
+        'axes.labelsize': 8,
+        'axes.titlesize': 8,
+        'xtick.labelsize': 7,
+        'ytick.labelsize': 7,
+        'legend.fontsize': 7,
+        'axes.linewidth': 0.8,
+        'lines.linewidth': 1.5,
+        'figure.dpi': 600,
+        'xtick.direction': 'in',
+        'ytick.direction': 'in',
+        'xtick.top': True,
+        'ytick.right': True,
+        'xtick.major.size': 3.5,
+        'ytick.major.size': 3.5,
+        'xtick.minor.size': 2.0,
+        'ytick.minor.size': 2.0,
+        'xtick.major.width': 0.6,
+        'ytick.major.width': 0.6,
+        'xtick.minor.width': 0.5,
+        'ytick.minor.width': 0.5,
     })
 
-
     np.random.seed(42)
-
-    dist_type = 'normal' 
 
     if dist_type == 'normal':
         base_data = np.random.normal(loc=0, scale=1, size=1000)
@@ -31,89 +42,70 @@ def plot_artificial_examples():
     elif dist_type == 'lognormal':
         base_data = np.random.lognormal(mean=0, sigma=1.0, size=1000)
         x_limit = (-13, 13)
+    else:
+        raise ValueError("dist_type must be 'normal' or 'lognormal'")
 
-    base_n = len(base_data)
     placeholder_value = 10.0
 
-    outliers_10 = np.full(10, placeholder_value)
-    data_10 = np.concatenate([base_data, outliers_10])
+    data_10 = np.concatenate([base_data, np.full(10, placeholder_value)])
+    data_100 = np.concatenate([base_data, np.full(100, placeholder_value)])
 
-    outliers_100 = np.full(100, placeholder_value)
-    data_100 = np.concatenate([base_data, outliers_100])
-
-
-    # Plotting and Exporting
-    color_hist = '#4F94B4'  
-    color_kde = '#A33B76'   
-    color_vline = '#F29C07' 
+    color_hist = '#3498db'  
+    color_kde = '#e74c3c'   
+    color_vline = '#2c3e50'  
 
     datasets = [
-        (data_10, 10, 'a'), 
+        (data_10, 10, 'a'),
         (data_100, 100, 'b')
     ]
 
+    data_dir = os.path.join("Synthetic Experiments", "Plots")
+    os.makedirs(data_dir, exist_ok=True)
+
     for data, added_n, file_suffix in datasets:
-        # Create a fresh figure for each dataset
-        fig, ax = plt.subplots(figsize=(fig_width, fig_height), tight_layout=True)
-        
-        ax.set_facecolor('#EAEAF2')
-        ax.grid(color='white', linestyle='-', linewidth=0.5, alpha=0.7)
-        
-        # 1. Histogram
-        sns.histplot(
-            data, 
-            bins=50, 
-            stat='density', 
-            color=color_hist, 
-            edgecolor='white',
-            linewidth=0.5,
-            alpha=1.0,
-            ax=ax
+        fig, ax = plt.subplots(figsize=(fig_width, fig_height), constrained_layout=True)
+        ax.hist(
+            data,
+            bins=50,
+            density=True,
+            color=color_hist,
+            alpha=0.25,
+            edgecolor=color_hist,
+            linewidth=0.6,
+            histtype='stepfilled',
+            label='Data histogram'
         )
-        
-        # 2. KDE
         sns.kdeplot(
-            data, 
-            color=color_kde, 
-            linewidth=2.5, 
+            data,
+            color=color_kde,
+            alpha=0.9,
+            linewidth=1.5,
             ax=ax,
-            label='Kernel Density Estimate'
+            label='KDE'
         )
-        
-        # 3. Artificial Outliers Line
         ax.axvline(
-            x=placeholder_value, 
-            color=color_vline, 
-            linestyle='--', 
-            linewidth=2.5, 
+            x=placeholder_value,
+            color=color_vline,
+            linestyle='--',
+            linewidth=1.2,
+            alpha=0.85,
             label='Artificial outliers'
         )
-        
-        # Formatting
+        dist_label = 'Normal' if dist_type == 'normal' else 'Log-normal'
+        ax.set_title(
+            rf'{dist_label} Distribution with $N_{{\mathrm{{out}}}} = {added_n}$ Magic Numbers',
+            pad=6
+        )
         ax.set_xlabel('Value')
         ax.set_ylabel('Probability Density')
         ax.set_xlim(x_limit)
-        
-        
-        # Legend moved to upper left
-        legend = ax.legend(
-            loc='upper left', 
-            frameon=True, 
-            facecolor='white', 
-            edgecolor='gray',
-            fancybox=False
-        )
-        legend.get_frame().set_linewidth(0.5)
-
-        for spine in ['top', 'right', 'left', 'bottom']:
-            ax.spines[spine].set_visible(False)
-
-        # Save each figure individually
-        data_dir = os.path.join("Synthetic Experiments", "Plots")
+        ax.set_ylim(bottom=0)
+        ax.minorticks_on()
+        ax.legend(loc='upper right', frameon=False, handlelength=1.8)
         filename = f'artificial_outliers_{file_suffix}.pdf'
-        os.makedirs(data_dir, exist_ok=True)
-        plt.savefig(os.path.join(data_dir, filename), format='pdf', bbox_inches='tight') 
+        fig.savefig(os.path.join(data_dir, filename), format='pdf', bbox_inches='tight')
         plt.close(fig)
+
 
 if __name__ == "__main__":
     plot_artificial_examples()

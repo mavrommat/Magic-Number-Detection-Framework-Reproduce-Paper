@@ -8,6 +8,7 @@ import truststore
 from astropy.coordinates import SkyCoord
 from astroquery.vizier import Vizier
 from Magic_Number_Detection.get_magic_numbers import MagicNumberDetector
+
 truststore.inject_into_ssl()
 logging.getLogger("matplotlib").setLevel(logging.WARNING)
 plt.set_loglevel("warning")
@@ -16,7 +17,7 @@ CATALOG_ID = "V/162/dr11sl"
 VIZIER_SERVER = "vizier.cfa.harvard.edu"
 ROW_LIMIT = -1
 
-FIELD_NAME = "LAMOST field around M67"
+FIELD_NAME = "LAMOST DR11 (M67 field)"
 FIELD_RA_DEG = 132.845833
 FIELD_DEC_DEG = 11.813889
 SEARCH_RADIUS_DEG = 1.5
@@ -75,7 +76,6 @@ def match_magic_values(series, magic_values, atol=1e-6):
     return finite & matches
 
 
-
 def fetch_lamost_stars():
     vizier = Vizier(vizier_server=VIZIER_SERVER, row_limit=ROW_LIMIT, columns=["**"])
     center = SkyCoord(ra=FIELD_RA_DEG * u.deg, dec=FIELD_DEC_DEG * u.deg, frame="icrs")
@@ -89,8 +89,6 @@ def fetch_lamost_stars():
     missing = [col for col in required if col not in df.columns]
     if missing:
         raise RuntimeError(f"Required catalogue columns are missing: {missing}")
-
-
 
     is_star = df["Class"].astype(str).str.strip().str.upper() == "STAR"
     is_obj = df["FiberType"].astype(str).str.strip() == "Obj"
@@ -117,7 +115,6 @@ def run_magic_detection(df):
 
     for col in DETECT_COLS:
         magic_vals = get_magic_values(cleaned_results, col)
-
         is_magic = match_magic_values(df[col], magic_vals)
         df[f"is_{col}_magic"] = is_magic
 
@@ -127,10 +124,13 @@ def run_magic_detection(df):
     return df
 
 
-def plot_flux_ratios(df, output_path):
+def plot_flux_ratios(df, output_path, column_type="single"):
+    fig_width = 3.54 if column_type == "single" else 7.09
+    fig_height = 2.65 if column_type == "single" else 4.5
+
     x = df["log10_Fz_over_Fi"].to_numpy(dtype=float)
     y = df["log10_Fg_over_Fr"].to_numpy(dtype=float)
-    
+
     finite_xy = np.isfinite(x) & np.isfinite(y)
     if not finite_xy.any():
         raise RuntimeError("No sources have finite z/i and g/r flux-ratio values.")
@@ -139,54 +139,103 @@ def plot_flux_ratios(df, output_path):
     y_magic = (df["is_gmag_magic"] | df["is_rmag_magic"]).to_numpy(dtype=bool)
 
     clean = finite_xy & ~x_magic & ~y_magic
+    contaminated = finite_xy & (x_magic | y_magic)
+    total_points = int(finite_xy.sum())
+    contaminated_points = int(contaminated.sum())
+    contaminated_pct = 100.0 * contaminated_points / total_points
+    print(
+        f"Contaminated plot points: {contaminated_points:,} / {total_points:,} "
+        f"({contaminated_pct:.2f}%)"
+    )
+
+    aa_rcparams = {
+        "font.family": "sans-serif",
+        "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
+        "font.size": 8,
+        "axes.labelsize": 8,
+        "axes.titlesize": 8,
+        "xtick.labelsize": 7,
+        "ytick.labelsize": 7,
+        "legend.fontsize": 6.5,
+        "axes.linewidth": 0.8,
+        "lines.linewidth": 1.5,
+        "figure.dpi": 600,
+        "xtick.direction": "in",
+        "ytick.direction": "in",
+        "xtick.top": True,
+        "ytick.right": True,
+        "xtick.major.size": 3.5,
+        "ytick.major.size": 3.5,
+        "xtick.minor.size": 2.0,
+        "ytick.minor.size": 2.0,
+        "xtick.major.width": 0.6,
+        "ytick.major.width": 0.6,
+        "xtick.minor.width": 0.5,
+        "ytick.minor.width": 0.5,
+        "axes.labelcolor": "black",
+        "xtick.color": "black",
+        "ytick.color": "black",
+        "text.color": "black",
+        "figure.facecolor": "white",
+        "axes.facecolor": "white",
+    }
 
     layers = [
         (
             clean,
-            dict(s=10, alpha=0.42, color="steelblue", marker="o", zorder=1),
-            lambda count, total: f"No detected magic values in plotted bands (N={count:,})",
+            dict(s=5, alpha=0.45, color="#3498db", marker="o", zorder=1),
+            lambda count: f"Clean photometry (N={count:,})",
         ),
         (
             finite_xy & x_magic & ~y_magic,
-            dict(s=24, alpha=0.75, color="darkorange", marker="^", zorder=3),
-            lambda count, total: f"Magic value affects z/i x-coordinate only (N={count:,})",
+            dict(s=14, alpha=0.80, color="#f39c12", marker="^", zorder=3),
+            lambda count: f"Magic value in z/i only (N={count:,})",
         ),
         (
             finite_xy & ~x_magic & y_magic,
-            dict(s=24, alpha=0.75, color="mediumseagreen", marker="v", zorder=3),
-            lambda count, total: f"Magic value affects g/r y-coordinate only (N={count:,})",
+            dict(s=14, alpha=0.80, color="#2c3e50", marker="v", zorder=3),
+            lambda count: f"Magic value in g/r only (N={count:,})",
         ),
         (
             finite_xy & x_magic & y_magic,
-            dict(s=30, alpha=0.85, color="crimson", marker="s", zorder=4),
-            lambda count, total: f"Magic values affect both plotted coordinates (N={count:,})",
+            dict(s=18, alpha=0.85, color="#e74c3c", marker="s", zorder=4),
+            lambda count: f"Magic values in both (N={count:,})",
         ),
     ]
 
-    fig, ax = plt.subplots(figsize=(8.2, 6.6))
+    with plt.rc_context(aa_rcparams):
+        fig, ax = plt.subplots(figsize=(fig_width, fig_height))
 
-    for mask, style, label_fn in layers:
-        ax.scatter(
-            x[mask],
-            y[mask],
-            edgecolors="none",
-            rasterized=True,
-            label=label_fn(int(mask.sum()), int(mask.sum())),
-            **style,
+        for mask, style, label_fn in layers:
+            ax.scatter(
+                x[mask],
+                y[mask],
+                edgecolors="none",
+                rasterized=True,
+                label=label_fn(int(mask.sum())),
+                **style,
+            )
+
+        ax.set_xlim(-0.05, 0.15)
+        ax.set_ylim(-0.5, 0.05)
+        ax.minorticks_on()
+        ax.set_title(f"{FIELD_NAME}: Photometric Flux-Ratio Contamination", pad=6)
+        ax.set_xlabel(r"$\log_{10}(F_z/F_i) = -0.4(z - i)$", labelpad=4)
+        ax.set_ylabel(r"$\log_{10}(F_g/F_r) = -0.4(g - r)$", labelpad=4)
+        ax.grid(True, which="major", linestyle="-", linewidth=0.4, alpha=0.25)
+        ax.legend(
+            loc="best",
+            frameon=False,
+            handletextpad=0.4,
+            markerscale=1.1,
+            borderaxespad=0.4,
         )
-    ax.set_ylim(-0.5, 0.05)
-    ax.set_xlim(-0.05, 0.15)
-    ax.set_xlabel(r"$\log_{10}\!\left(F_z/F_i\right) = -0.4(z-i)$")
-    ax.set_ylabel(r"$\log_{10}\!\left(F_g/F_r\right) = -0.4(g-r)$")
-    ax.set_title(f"{FIELD_NAME}: z/i vs. g/r log flux ratios")
-    ax.grid(True, linestyle=":", alpha=0.3)
-    ax.legend(loc="best", frameon=True, fontsize=8)
-    fig.tight_layout()
-    fig.savefig(output_path, dpi=300, bbox_inches="tight")
-    plt.close(fig)
+        fig.tight_layout()
+        fig.savefig(output_path, dpi=600, bbox_inches="tight", pad_inches=0.03, facecolor="white")
+        plt.close(fig)
+
 
 def Bias_analysis():
-
     PLOT_DIR.mkdir(parents=True, exist_ok=True)
     df = fetch_lamost_stars()
     df = run_magic_detection(df)
@@ -195,7 +244,7 @@ def Bias_analysis():
     df["z_minus_i"] = df["zmag"] - df["imag"]
     df["log10_Fz_over_Fi"] = -0.4 * df["z_minus_i"]
 
-    plot_flux_ratios(df, OUTPUT_PLOT)
+    plot_flux_ratios(df, OUTPUT_PLOT, column_type="single")
 
 
 if __name__ == "__main__":
