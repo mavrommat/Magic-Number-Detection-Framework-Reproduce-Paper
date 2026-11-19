@@ -4,7 +4,63 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
+
+BOOTSTRAP_RESAMPLES = 2000
+BOOTSTRAP_SEED = 42
+
+
+def _catalog_bootstrap_ci(
+    frame: pd.DataFrame,
+    n_resamples: int = BOOTSTRAP_RESAMPLES,
+    rng: np.random.Generator | None = None,
+) -> tuple[float, float]:
+    """Return a percentile CI for the column-weighted mean, resampling catalogs."""
+    catalog_stats = frame.groupby("Catalog")["F1 Score"].agg(["sum", "count"])
+    if len(catalog_stats) < 2:
+        raise ValueError(
+            "Catalog-bootstrap confidence intervals require at least two catalogs."
+        )
+    if n_resamples < 1:
+        raise ValueError("n_resamples must be a positive integer.")
+
+    if rng is None:
+        rng = np.random.default_rng(BOOTSTRAP_SEED)
+    sums = catalog_stats["sum"].to_numpy(dtype=float)
+    counts = catalog_stats["count"].to_numpy(dtype=float)
+    sampled_catalogs = rng.integers(
+        0,
+        len(catalog_stats),
+        size=(n_resamples, len(catalog_stats)),
+    )
+    bootstrap_means = sums[sampled_catalogs].sum(axis=1) / counts[sampled_catalogs].sum(axis=1)
+    lower, upper = np.quantile(bootstrap_means, [0.025, 0.975])
+    return float(lower), float(upper)
+
+
+def _summarize_by_parameter(
+    frame: pd.DataFrame,
+    parameter: str,
+    rng: np.random.Generator,
+) -> pd.DataFrame:
+    if frame.empty:
+        raise ValueError(f"No data available to summarize for {parameter}.")
+
+    rows = []
+    for value, group in frame.groupby(parameter, sort=True):
+        lower, upper = _catalog_bootstrap_ci(group, rng=rng)
+        rows.append(
+            {
+                parameter: value,
+                "mean": group["F1 Score"].mean(),
+                "ci_lower": lower,
+                "ci_upper": upper,
+            }
+        )
+    return pd.DataFrame(rows).set_index(parameter)
+
+
 def Hyperparameter_Sensitivity(json_filepath: str):
+    """Plot row-instance F1 sensitivity with catalog-cluster bootstrap intervals."""
     print("Loading and parsing full grid search data...")
 
     output_dir = Path(json_filepath).parent / "Plots"
@@ -32,12 +88,17 @@ def Hyperparameter_Sensitivity(json_filepath: str):
                 continue
 
             for col_name, metrics in run.get("Column_Metrics", {}).items():
-                if metrics.get("Processed by Algorithm") != "Yes": 
-                    continue
-                
-                f1 = metrics.get("Metrics", {}).get("F1 Score", 0.0)
+                row_metrics = metrics.get("Row-Instance Metrics")
+                if not isinstance(row_metrics, dict):
+                    raise KeyError(
+                        f"Missing 'Row-Instance Metrics' for "
+                        f"{catalog_name}/{col_name}; regenerate the results."
+                    )
+
+                f1 = float(row_metrics["F1 Score"])
 
                 records.append({
+                    "Catalog": catalog_name,
                     "Sign Violation": float(sign),
                     "Gauss Threshold": float(gauss),
                     "Overlap Threshold": float(overlap),
@@ -76,6 +137,12 @@ def Hyperparameter_Sensitivity(json_filepath: str):
     best_combo = grid_means.idxmax()
     best_params = dict(zip(param_cols, best_combo))
     print(f"Optimal Grid Configuration: {best_params} (Mean F1 = {grid_means.max():.4f})")
+    print(
+        f"Pointwise 95% percentile confidence intervals use "
+        f"{BOOTSTRAP_RESAMPLES:,} catalog-cluster bootstrap resamples across "
+        f"{df['Catalog'].nunique()} catalogs."
+    )
+    rng = np.random.default_rng(BOOTSTRAP_SEED)
 
     plots_config = [
         {
@@ -101,22 +168,20 @@ def Hyperparameter_Sensitivity(json_filepath: str):
         }
     ]
 
-    # Pre calculate  y-axis limits 
+    # Calculate shared y-axis limits from the bootstrap intervals.
     global_y_min, global_y_max = 1.0, 0.0
     for p in plots_config:
         col = p["col"]
         other_cols = [c for c in param_cols if c != col]
         
-        marg = df.groupby(col)["F1 Score"].agg(["mean", "std", "count"])
-        marg["ci"] = 1.96 * (marg["std"] / np.sqrt(marg["count"].clip(lower=1)))
+        marg = _summarize_by_parameter(df, col, rng)
         
         mask = (df[other_cols[0]] == best_params[other_cols[0]]) & \
                (df[other_cols[1]] == best_params[other_cols[1]])
-        cond = df[mask].groupby(col)["F1 Score"].agg(["mean", "std", "count"])
-        cond["ci"] = 1.96 * (cond["std"] / np.sqrt(cond["count"].clip(lower=1)))
+        cond = _summarize_by_parameter(df[mask], col, rng)
 
-        low = min((marg["mean"] - marg["ci"]).min(), (cond["mean"] - cond["ci"]).min())
-        high = max((marg["mean"] + marg["ci"]).max(), (cond["mean"] + cond["ci"]).max())
+        low = min(marg["ci_lower"].min(), cond["ci_lower"].min())
+        high = max(marg["ci_upper"].max(), cond["ci_upper"].max())
         global_y_min = min(global_y_min, low)
         global_y_max = max(global_y_max, high)
 
@@ -135,20 +200,18 @@ def Hyperparameter_Sensitivity(json_filepath: str):
         col = p["col"]
         other_cols = [c for c in param_cols if c != col]
 
-        # A. Global Marginal Stats
-        marg = df.groupby(col)["F1 Score"].agg(["mean", "std", "count"]).sort_index()
-        marg["ci"] = 1.96 * (marg["std"] / np.sqrt(marg["count"].clip(lower=1)))
+        # A. Global marginal mean with catalog-cluster bootstrap CI
+        marg = _summarize_by_parameter(df, col, rng).sort_index()
 
         # B. Optimal Conditional Slice
         mask = (df[other_cols[0]] == best_params[other_cols[0]]) & \
                (df[other_cols[1]] == best_params[other_cols[1]])
-        cond = df[mask].groupby(col)["F1 Score"].agg(["mean", "std", "count"]).sort_index()
-        cond["ci"] = 1.96 * (cond["std"] / np.sqrt(cond["count"].clip(lower=1)))
+        cond = _summarize_by_parameter(df[mask], col, rng).sort_index()
 
         fig, ax = plt.subplots(figsize=(fig_width, fig_height))
         ax.grid(True, linestyle="--", linewidth=0.5, color="#CCCCCC", alpha=0.7, zorder=0)
 
-        # 1. Marginal Mean + 95% CI Shaded Band
+        # 1. Marginal mean + catalog-bootstrap 95% confidence interval
         ax.plot(
             marg.index, marg["mean"],
             linestyle="--", linewidth=1.0, color="#555555",
@@ -156,18 +219,23 @@ def Hyperparameter_Sensitivity(json_filepath: str):
         )
         ax.fill_between(
             marg.index,
-            marg["mean"] - marg["ci"],
-            marg["mean"] + marg["ci"],
+            marg["ci_lower"],
+            marg["ci_upper"],
             color="#888888", alpha=0.18, edgecolor="none",
-            label="Marginal 95% CI", zorder=1
+            label="Marginal catalog-bootstrap percentile 95% CI", zorder=1
         )
 
-        # 2. Optimal Slice + Error Bars
+        # 2. Optimal slice + asymmetric catalog-bootstrap confidence intervals
         if not cond.empty:
             ax.errorbar(
                 x=cond.index,
                 y=cond["mean"],
-                yerr=cond["ci"],
+                yerr=np.vstack(
+                    (
+                        cond["mean"] - cond["ci_lower"],
+                        cond["ci_upper"] - cond["mean"],
+                    )
+                ),
                 fmt=p["marker"] + "-",
                 color=p["color"],
                 ecolor=p["color"],
@@ -178,7 +246,7 @@ def Hyperparameter_Sensitivity(json_filepath: str):
                 markerfacecolor="white",
                 markeredgewidth=1.1,
                 linewidth=1.3,
-                label=r"Optimal Slice ($\pm$95% CI)",
+                label="Optimal slice (catalog-bootstrap percentile 95% CI)",
                 zorder=4
             )
 
@@ -190,7 +258,7 @@ def Hyperparameter_Sensitivity(json_filepath: str):
         )
 
         ax.set_xlabel(p["xlabel"], labelpad=4)
-        ax.set_ylabel("Mean Framework $F_1$ Score", labelpad=4)
+        ax.set_ylabel("Mean row-instance Framework $F_1$ Score", labelpad=4)
         ax.set_ylim(shared_ylim)
 
         # X-axis padding

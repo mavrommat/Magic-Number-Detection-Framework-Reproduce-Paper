@@ -33,18 +33,19 @@ def print_separator(char="=", width=78):
     print(char * width)
 
 
-def calculate_partial_eta_squared(anova_table): # Partial eta squared: eta_p^2 = SS_effect / (SS_effect + SS_error)
+def calculate_partial_eta_squared(anova_table):
     if "Residual" not in anova_table.index:
         return anova_table
 
-    residual_ss = anova_table.loc["Residual", "sum_sq"]
-
+    df_resid = anova_table.loc["Residual", "df"]
     result = anova_table.copy()
 
-    result["partial_eta_sq"] = (result["sum_sq"] / (result["sum_sq"] + residual_ss))
-
+    # Exact formula compatible with HC3 robust F-statistics
+    result["partial_eta_sq"] = (
+        (result["F"] * result["df"]) / 
+        ((result["F"] * result["df"]) + df_resid)
+    )
     result.loc["Residual", "partial_eta_sq"] = np.nan
-
     return result
 
 

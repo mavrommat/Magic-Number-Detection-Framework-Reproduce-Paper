@@ -109,7 +109,7 @@ def plot_artificial_examples():
             ax.spines[spine].set_visible(False)
 
         # Save each figure individually
-        data_dir = os.path.join("Synthetic Experiments", "Data")
+        data_dir = os.path.join("Synthetic Experiments", "Plots")
         filename = f'artificial_outliers_{file_suffix}.pdf'
         os.makedirs(data_dir, exist_ok=True)
         plt.savefig(os.path.join(data_dir, filename), format='pdf', bbox_inches='tight') 

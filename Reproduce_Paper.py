@@ -8,13 +8,14 @@ from PlotsKDE import plot_artificial_examples
 import ANOVA
 import GridVisualisation as gv
 from ParameterGrid import ParameterGrid
-from generate_shap_and_surface_plots import generate_all_plots
+from Synthetic_Plots_Shap_Marginal import generate_all_plots
 from ANOVA import run_n_way_anova
-from Scaleability import run_scalability_benchmark
+from Scalability import run_scalability_benchmark
 from PaperWorkflowMagicNumbers import run_real_world_analysis 
 from json_processing import ModelEvaluator
 from RW_hyperparameter_sensitivity import Hyperparameter_Sensitivity
 from Magic_Numbers_Patterns import Magic_Numbers_Patterns
+from Bias_analysis import Bias_analysis
 
 import logging
 logging.getLogger('matplotlib.font_manager').setLevel(logging.WARNING)
@@ -202,20 +203,23 @@ def run_json_processing_plots():
     results = evaluator.run_pipeline()
     
 
+    
 if __name__ == "__main__":
 
-    RUN_SYNTHETIC_ANALYSIS = False
+    RUN_SYNTHETIC_ANALYSIS = True
 
-    RUN_REAL_WORLD_ANALYSIS = True
+    RUN_REAL_WORLD_ANALYSIS = False
 
-    
 
     #==============================
     # Run Sythetic Experiments 
     #==============================
     if RUN_SYNTHETIC_ANALYSIS:
+        
         plot_artificial_examples()
 
+        Bias_analysis()
+        
         # Run the grid search for 2 magic numbers
         run_synthetic_data_grid_search_2_MN()
         
@@ -225,7 +229,7 @@ if __name__ == "__main__":
         # Generate the SHAP and marginal response plots
         print("\nInitiating statistical plotting...")
         generate_all_plots()
-
+        
         print("\nInitiating N-Way ANOVA Analysis...")
         data_dir = os.path.join("Synthetic Experiments", "Data")
         run_n_way_anova(os.path.join(data_dir, "1_magic_numbers_results.csv"), is_dual=False)
@@ -233,7 +237,7 @@ if __name__ == "__main__":
         
         print("\nInitiating Scalability Benchmark...")
         run_scalability_benchmark(DATASET_SIZES = [1000, 10000, 100000, 1000000, 10000000] ,ITERATIONS_PER_SIZE = 3)
-                                                    
+                                           
 
     #==============================
     # Run Real-World Analysis 

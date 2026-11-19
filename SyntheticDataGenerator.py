@@ -20,15 +20,7 @@ class SyntheticData:
 
         elif self.data_type == "normal":
             self.data = self.rng.normal(loc=self.mean, scale=self.std, size=self.num_samples).astype(np.float64)
-            
-        elif self.data_type == "poisson":
-            self.data = self.rng.poisson(lam=self.mean, size=self.num_samples).astype(np.float64)
-            
-        elif self.data_type == "negative_binomial":
-            n = self.variables.get("n", 10)
-            p = self.variables.get("p", 0.5)
-            self.data = self.rng.negative_binomial(n=n, p=p, size=self.num_samples).astype(np.float64)
-            
+               
         else:
             raise ValueError(f"Unsupported data_type: {self.data_type}")
 
@@ -43,13 +35,31 @@ class SyntheticData:
             self.data = np.clip(self.data, a_min=lower_bound, a_max=upper_bound)
 
         elif self.data_type == "log_normal":
-            upper_bound = np.exp(1.0 + SIGMA_LIMIT * self.std)
-            # Strict minimum clipping floor at exactly zero
-            self.data = np.clip(self.data, a_min=0.0, a_max=upper_bound)
+            mu = 1.0
+
+            # 3-sigma limits in log-space
+            lower_bound = np.exp(mu - SIGMA_LIMIT * self.std)
+            upper_bound = np.exp(mu + SIGMA_LIMIT * self.std)
+
+            out_of_bounds = (
+                (self.data < lower_bound) |
+                (self.data > upper_bound)
+            )
+
+            while np.any(out_of_bounds):
+                n_rejected = np.count_nonzero(out_of_bounds)
+
+                self.data[out_of_bounds] = self.rng.lognormal(
+                    mean=mu,
+                    sigma=self.std,
+                    size=n_rejected
+                )
+
+                out_of_bounds = (
+                    (self.data < lower_bound) |
+                    (self.data > upper_bound)
+                )
             
-        elif self.data_type in ["poisson", "negative_binomial"]:
-            upper_bound = np.percentile(self.data, PERCENTILE_LIMIT)
-            self.data = self.data[self.data <= upper_bound]
 
         # Save the clean, clipped baseline so we can reset it during grid iteration
         self.base_data = self.data.copy()

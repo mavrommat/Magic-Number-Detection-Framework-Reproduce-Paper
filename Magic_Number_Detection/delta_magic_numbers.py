@@ -35,20 +35,20 @@ class DeltaMagicNumbers:
         # Create a symmetrical distribution around 0 of the sequential distances
         self.symmetrical_seq_dist = self.Create_symmetrical_seq_distances(self.seq_dist) 
 
-        self.magic_distances = self.Calculate_magic_distances(
-            self.symmetrical_seq_dist, 
-            self.col_name, 
-            gauss_threshold = self.gauss_threshold, 
-            plot_graphs = self.plot_graphs
-        )
+        self.outlier_indices = self.Calculate_magic_distances(
+            self.seq_dist,
+             self.symmetrical_seq_dist, 
+             self.col_name, 
+             gauss_threshold = self.gauss_threshold, 
+             plot_graphs = self.plot_graphs
+         )
         
         #If safeguard was enabled, we remove the imputed values before matching distances with actual values in the array
         self.data_arr = self.Remove_Safeguard_imputed_values(self.Output_stabilisation)
 
         # Match the identified outlier distance with actual valuew in the array
-        self.matched_values = self.Match_dist_with_values(self.magic_distances, 
-                                                          self.data_arr, 
-                                                          self.seq_dist)
+        self.matched_values = self.Match_dist_with_values(self.outlier_indices, 
+                                                          self.data_arr)
 
         # Create a dictionary with the candidate magic number info
         self.Candidate_magic_info_dict = self.Candidate_magic_info(self.data_arr, 
@@ -91,21 +91,23 @@ class DeltaMagicNumbers:
         symmetrical_seq_dist = np.concatenate((seq_dist, seq_dist_opp))
         return symmetrical_seq_dist
     
-    def Calculate_magic_distances(self, symmetrical_seq_dist, col_name, gauss_threshold, plot_graphs=False) -> np.ndarray:
+    def Calculate_magic_distances(self, seq_dist, symmetrical_seq_dist, col_name, gauss_threshold, plot_graphs=False) -> np.ndarray:
+        seq_dist = np.asarray(seq_dist)
         symmetrical_seq_dist = np.asarray(symmetrical_seq_dist)
         mu, sigma = np.mean(symmetrical_seq_dist), np.std(symmetrical_seq_dist)
         
         if sigma == 0:
-            return np.array([])
+            return np.array([], dtype=int)
 
         dist = norm(loc=mu, scale=sigma)
         
         # Use gauss_threshold as a percentage of the peak density
-        threshold_prob = dist.pdf(mu) * gauss_threshold #
+        threshold_prob = dist.pdf(mu) * gauss_threshold 
         
         # Now find which points are in that "rare" zone
-        is_outlier = dist.pdf(symmetrical_seq_dist) <= threshold_prob #
-        outliers = symmetrical_seq_dist[is_outlier] #
+        is_outlier = dist.pdf(symmetrical_seq_dist) <= threshold_prob 
+        outliers = symmetrical_seq_dist[is_outlier] 
+        outlier_indices = np.where(dist.pdf(seq_dist) <= threshold_prob)[0]
         
         # The linspace part is ONLY needed if you want to draw the 
         # vertical dotted lines on your graph at the correct spots.
@@ -165,13 +167,11 @@ class DeltaMagicNumbers:
             plt.tight_layout()
             plt.show()
 
-        # Return absolute, unique values as per your original logic
-        outliers = np.unique(np.abs(outliers))
         
-        return outliers
+        return outlier_indices
     
     # Match outlier distances with actual array values
-    def Match_dist_with_values(self, outlier_distances, data_arr, seq_dist) -> list:
+    def Match_dist_with_values(self, outlier_indices, data_arr) -> list:
         # Clean and prepare data
         # Safely convert to numeric; non-numbers and None become NaN
         data_arr = pd.to_numeric(data_arr, errors='coerce')
@@ -181,8 +181,8 @@ class DeltaMagicNumbers:
         data_arr_unique_sorted = np.unique(data_arr)
         
         # Handle edge cases
-        if len(outlier_distances) == 0 or len(data_arr_unique_sorted) <= 1:
-            return [None] * len(outlier_distances) if len(outlier_distances) > 0 else [None]
+        if len(outlier_indices) == 0 or len(data_arr_unique_sorted) <= 1:
+            return [None] * len(outlier_indices) if len(outlier_indices) > 0 else [None]
         
         matched_values = []
         mu = np.median(data_arr_unique_sorted)
@@ -191,19 +191,11 @@ class DeltaMagicNumbers:
         n = len(data_arr_unique_sorted)
         mu_d = np.median(data_arr_unique_sorted[int(n*0.05):int(n*0.95)])
         
-        for dist in outlier_distances:
-            found = False
-            dist = float(dist)  # Ensure distance is a float
-            
-            # Find closest index in seq_dist
-            closest_idx = np.argmin(np.abs(seq_dist - dist))
-            
-            if np.isclose(dist, seq_dist[closest_idx], atol=1e-5):
-                i = int(closest_idx)  # Ensure integer index
-                
-                # Safely get neighboring values
-                val_left = data_arr_unique_sorted[min(i, len(data_arr_unique_sorted)-1)]
-                val_right = data_arr_unique_sorted[min(i+1, len(data_arr_unique_sorted)-1)]
+        for idx in outlier_indices:
+            i = int(idx)
+            if 0 <= i < len(data_arr_unique_sorted) - 1:
+                val_left = data_arr_unique_sorted[i]
+                val_right = data_arr_unique_sorted[i + 1]
                 
                 # Determine outlier value based on median position
                 if (mu > val_left) and (mu > val_right):
@@ -220,9 +212,7 @@ class DeltaMagicNumbers:
                         outlier_value = None
                 
                 matched_values.append(outlier_value)
-                found = True
-            
-            if not found:
+            else:
                 matched_values.append(None)
         
         #print(f"Matched {len([x for x in matched_values if x is not None])} outliers")
@@ -364,7 +354,11 @@ class DeltaMagicNumbers:
         min_val = min(small_array.min(), big_array.min())
         max_val = max(small_array.max(), big_array.max())
         
-        x = np.linspace(min_val - 1, max_val + 1, 10000) # O(n) complexity for 10,000 points is manageable and provides a good approximation
+        span = max_val - min_val
+        if span <= 0:
+            span = np.std(big_array)
+        pad = 0.2 * span if span > 0 else 1.0
+        x = np.linspace(min_val - pad, max_val + pad, 10000) # O(n) complexity for 10,000 points is manageable and provides a good approximation
         """
         O(n^2) complexity for the overlap calculation is not efficient for large datasets.
         Instead, we can use a grid-based approach to approximate the overlap area.

@@ -123,8 +123,8 @@ def plot_scalability(df, save_path, column_type='single'):
         # 3. Scales & Limits
         ax.set_xscale('log')
         ax.set_yscale('log')
-        ax.set_xlim(left=9000, right=2e7) 
-        ax.set_ylim(bottom=0.1, top=400) 
+        ax.set_xlim(left=800, right=2e7) 
+        ax.set_ylim(bottom=0.01, top=400) 
         
         ax.xaxis.set_major_locator(ticker.LogLocator(base=10.0, numticks=10))
         ax.yaxis.set_major_locator(ticker.LogLocator(base=10.0, numticks=10))

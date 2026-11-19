@@ -3,8 +3,11 @@ import re
 import numpy as np
 from astropy.io import ascii
 from astropy.io.ascii.core import IntType, FloatType, StrType
-from Dowlnload_uzip_catalogs import fetch_and_unzip
+from Download_uzip_catalogs import fetch_and_unzip
 from pathlib import Path
+from vizier_mirrors import resolve_working_vizier_url
+
+from astropy.utils.data import conf as astropy_data_conf
 
 catalogs = [
     {
@@ -129,13 +132,12 @@ catalogs = [
     }
 ]
 
-
 #  GENERATOR LOGIC
 def safe_string_parser(vals):
     return np.array([str(v).strip() for v in vals], dtype=str)
 
 def generate_yaml(catalog_list):
-    output_dir = Path("Real_World_Analysis") / "ground_truth"
+    output_dir = Path("ground_truth")
     output_dir.mkdir(parents=True, exist_ok=True)
     
     local_dir = Path("Real_World_Analysis") / "local_data"
@@ -162,40 +164,52 @@ def generate_yaml(catalog_list):
             print(f" Error: Data missing and no valid URL provided for {name}.")
             continue
         
+        # Resolve a working mirror for the ReadMe file during parsing
+        try:
+            working_readme = resolve_working_vizier_url(
+                readme, per_mirror_timeout=2.5, max_total_time=8.0
+            )
+        except RuntimeError as e:
+            print(f" Error: ReadMe search timed out or failed for {name}: {e}")
+            continue
+
         converters = {}
         success = False
         column_names = []
-        
-        while not success:
-            try:
-                table = ascii.read(source, readme=readme, format="cds", converters=converters)
-                column_names = table.colnames
-                success = True
-                
-            except ValueError as e:
-                error_str = str(e)
-                match = re.search(r"Column\s+(.+?)\s+failed to convert", error_str)
-                
-                if match:
-                    bad_col = match.group(1)
-                    if bad_col in converters:
-                        print(f" Failed to load {name}. Column '{bad_col}' still failed after applying auto-fix.")
+        # Cap Astropy's internal ReadMe download to 10 seconds
+        with astropy_data_conf.set_temp("remote_timeout", 10.0):
+            while not success:
+                try:
+                    table = ascii.read(
+                        source, readme=working_readme, format="cds", converters=converters
+                    )
+                    column_names = table.colnames
+                    success = True
+                    
+                except ValueError as e:
+                    error_str = str(e)
+                    match = re.search(r"Column\s+(.+?)\s+failed to convert", error_str)
+                    
+                    if match:
+                        bad_col = match.group(1)
+                        if bad_col in converters:
+                            print(f" Failed to load {name}. Column '{bad_col}' still failed after applying auto-fix.")
+                            break
+                            
+                        print(f"   [Auto-Fix] Magic number crash detected on column '{bad_col}'. Forcing to string and retrying...")
+                        
+                        converters[bad_col] = [
+                            (safe_string_parser, IntType),
+                            (safe_string_parser, FloatType),
+                            (safe_string_parser, StrType)
+                        ]
+                    else:
+                        print(f" Failed to load {name}. ValueError: {e}")
                         break
                         
-                    print(f"   [Auto-Fix] Magic number crash detected on column '{bad_col}'. Forcing to string and retrying...")
-                    
-                    converters[bad_col] = [
-                        (safe_string_parser, IntType),
-                        (safe_string_parser, FloatType),
-                        (safe_string_parser, StrType)
-                    ]
-                else:
-                    print(f" Failed to load {name}. ValueError: {e}")
+                except Exception as e:
+                    print(f" Failed to load {name}. Error: {e}")
                     break
-                    
-            except Exception as e:
-                print(f" Failed to load {name}. Error: {e}")
-                break
 
         if not success:
             continue
