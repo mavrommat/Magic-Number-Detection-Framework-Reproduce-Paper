@@ -43,7 +43,7 @@ columns:
     Ground_Truth_Magic: []
 
   z.v:
-    Category: "Redshift
+    Category: "Redshift"
     Ground_Truth_Magic: []
 
   z.b:
