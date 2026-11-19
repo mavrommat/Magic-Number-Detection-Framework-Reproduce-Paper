@@ -1,4 +1,5 @@
 import json
+import warnings
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -98,6 +99,7 @@ def _summarize_by_parameter(
 def Hyperparameter_Sensitivity(json_filepath: str, column_type: str = "single"):
 
     print("Loading and parsing full grid search data...")
+    rng = np.random.default_rng(BOOTSTRAP_SEED)
 
     output_dir = Path(json_filepath).parent / "Plots"
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -239,10 +241,8 @@ def Hyperparameter_Sensitivity(json_filepath: str, column_type: str = "single"):
             col = p["col"]
             other_cols = [c for c in param_cols if c != col]
 
-            # A. Contaminated-column marginal mean with catalog-cluster bootstrap CI
             marg = _summarize_by_parameter(contam_df, col, rng).sort_index()
 
-            # B. Conditional slice at the most common LOCO-selected configuration
             mask = (
                 (contam_df[other_cols[0]] == best_params[other_cols[0]])
                 & (contam_df[other_cols[1]] == best_params[other_cols[1]])
@@ -252,7 +252,7 @@ def Hyperparameter_Sensitivity(json_filepath: str, column_type: str = "single"):
             fig, ax = plt.subplots(figsize=(fig_width, fig_height))
             ax.grid(True, which="major", linestyle="-", linewidth=0.4, alpha=0.25, zorder=0)
 
-            # 1. Contaminated-column marginal mean + catalog-bootstrap 95% CI
+            # Contaminated column marginal mean and catalogue-bootstrap CI
             ax.plot(
                 marg.index,
                 marg["mean"],
@@ -273,7 +273,7 @@ def Hyperparameter_Sensitivity(json_filepath: str, column_type: str = "single"):
                 zorder=1,
             )
 
-            # 2. LOCO-selected slice + asymmetric catalog-bootstrap confidence intervals
+            # LOCO-selected slice with asymmetric catalogue - bootstrap CI
             if not cond.empty:
                 ax.errorbar(
                     x=cond.index,
@@ -298,7 +298,7 @@ def Hyperparameter_Sensitivity(json_filepath: str, column_type: str = "single"):
                     zorder=4,
                 )
 
-            # 3. Vertical line for the most common LOCO-selected parameter value
+            # the most common LOCO-selected parameter value
             opt_val = best_params[col]
             ax.axvline(
                 opt_val,
@@ -336,10 +336,7 @@ def _select_constrained_params(
     param_cols: list[str],
     max_clean_fpr: float = 0.05,
 ) -> tuple[float, float, float]:
-    """
-    Maximize catalog-averaged F1 on contaminated columns (|GT| > 0, keeping F1=0
-    for bypassed contaminated columns) subject to clean-column FPR <= max_clean_fpr.
-    """
+    
     contam = frame[frame["Has Ground Truth"]]
     clean = frame[~frame["Has Ground Truth"]]
 
@@ -356,7 +353,7 @@ def _select_constrained_params(
     if clean.empty:
         return contam_f1.idxmax()
 
-    # On clean columns, F1 < 1.0 means at least one false positive occurred (F1 == 0.0)
+    # On clean columns F1 < 1.0 means at least one false positive occurred (F1 = 0)
     clean_fpr = (
         clean.assign(false_alarm=clean["F1 Score"] < 1.0)
         .groupby([*param_cols, "Catalog"])["false_alarm"]
@@ -367,17 +364,22 @@ def _select_constrained_params(
     )
 
     grid = pd.concat([contam_f1, clean_fpr], axis=1)
-    feasible = grid[grid["clean_fpr"] <= max_clean_fpr]
+    valid_grid = grid.dropna(subset=["contam_f1", "clean_fpr"])
+    feasible = valid_grid[valid_grid["clean_fpr"] <= max_clean_fpr]
     if feasible.empty:
-        observed_clean_fpr = grid["clean_fpr"].dropna()
-        if observed_clean_fpr.empty:
+        if valid_grid.empty:
             raise ValueError("No clean-column false-alarm data is available for parameter selection.")
-        min_clean_fpr = float(observed_clean_fpr.min())
-        raise ValueError(
+        min_clean_fpr = float(valid_grid["clean_fpr"].min())
+        fallback = valid_grid[valid_grid["clean_fpr"] == min_clean_fpr]
+        warnings.warn(
             f"No parameter configuration satisfies the clean-column false-alarm "
-            f"limit of {max_clean_fpr:.1%}; the lowest observed rate is "
-            f"{min_clean_fpr:.1%}."
+            f"limit of {max_clean_fpr:.1%}; using the lowest achievable rate "
+            f"({min_clean_fpr:.1%}) and maximizing contaminated-column F1 among "
+            "configurations at that rate.",
+            RuntimeWarning,
+            stacklevel=2,
         )
+        return fallback["contam_f1"].idxmax()
 
     return feasible["contam_f1"].idxmax()
 
@@ -387,7 +389,7 @@ def _run_loco_cv(
     param_cols: list[str],
     max_clean_fpr: float = 0.05,
 ) -> pd.DataFrame:
-    """Evaluate each catalog using hyperparameters selected on all other catalogs."""
+    
     if df["Catalog"].nunique() < 2:
         raise ValueError("Leave-one-catalog-out evaluation requires at least two catalogs.")
 
