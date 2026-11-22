@@ -206,7 +206,7 @@ def run_json_processing_plots():
     
 if __name__ == "__main__":
 
-    RUN_SYNTHETIC_ANALYSIS = False
+    RUN_SYNTHETIC_ANALYSIS = True
 
     RUN_REAL_WORLD_ANALYSIS = True
 
@@ -223,6 +223,8 @@ if __name__ == "__main__":
         
         # Run the grid search for 1 magic number
         run_synthetic_data_grid_search_1_MN()
+
+
         # Generate the SHAP and marginal response plots
         print("\nInitiating statistical plotting...")
         generate_all_plots()

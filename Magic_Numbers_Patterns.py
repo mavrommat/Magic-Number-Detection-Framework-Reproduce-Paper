@@ -3,6 +3,23 @@ from collections import Counter
 from pathlib import Path
 import pandas as pd
 
+
+def _is_processed(value, catalog_name: str, col_name: str) -> bool:
+    if value is None:
+        raise KeyError(f"Missing processing status for {catalog_name}/{col_name}")
+    if isinstance(value, bool):
+        return value
+
+    normalized = str(value).strip().lower()
+    if normalized in {"yes", "true", "1"}:
+        return True
+    if normalized in {"no", "false", "0"}:
+        return False
+    raise ValueError(
+        f"Invalid algorithm processing status for {catalog_name}/{col_name}: {value!r}"
+    )
+
+
 def Magic_Numbers_Patterns(
     json_filepath: str,
     sign_opt: int,
@@ -26,7 +43,11 @@ def Magic_Numbers_Patterns(
     single_magic_count = 0
     zero_magic_count = 0
     multi_magic_count = 0
-    
+    processing_counts = {"Processed": 0, "Bypassed": 0}
+    presence_by_status = {
+        status: {"Zero_Magic_Columns": 0, "Single_Magic_Columns": 0, "Multiple_Magic_Columns": 0}
+        for status in processing_counts
+    }
     all_ground_truth_values = []
 
     for catalog_name, runs in data.items():
@@ -43,9 +64,17 @@ def Magic_Numbers_Patterns(
                 continue
 
             for col_name, metrics in run.get("Column_Metrics", {}).items():
-                if metrics.get("Processed by Algorithm") != "Yes":
-                    continue
-                
+                processed_value = metrics.get(
+                    "Processed_By_Algorithm",
+                    metrics.get("Processed by Algorithm"),
+                )
+                processed = _is_processed(
+                    processed_value,
+                    catalog_name,
+                    col_name,
+                )
+                status = "Processed" if processed else "Bypassed"
+                processing_counts[status] += 1
                 total_columns += 1
                 
                 ground_truth = metrics.get("Ground Truth Magic Numbers", [])
@@ -60,10 +89,13 @@ def Magic_Numbers_Patterns(
                 
                 if gt_length == 0:
                     zero_magic_count += 1
+                    presence_by_status[status]["Zero_Magic_Columns"] += 1
                 elif gt_length == 1:
                     single_magic_count += 1
+                    presence_by_status[status]["Single_Magic_Columns"] += 1
                 else:
                     multi_magic_count += 1
+                    presence_by_status[status]["Multiple_Magic_Columns"] += 1
 
                 all_ground_truth_values.extend(ground_truth)
 
@@ -76,6 +108,19 @@ def Magic_Numbers_Patterns(
     pct_multi = (multi_magic_count / total_columns) * 100
 
     counter = Counter(all_ground_truth_values)
+    processing_summary = []
+    for status, counts in presence_by_status.items():
+        status_columns = processing_counts[status]
+        columns_with_magic = counts["Single_Magic_Columns"] + counts["Multiple_Magic_Columns"]
+        processing_summary.append({
+            "Processing_Status": status,
+            "Columns": status_columns,
+            **counts,
+            "Columns_With_Magic": columns_with_magic,
+            "Columns_With_Magic_Pct": (
+                columns_with_magic / status_columns * 100 if status_columns else 0.0
+            ),
+        })
 
     # Report
     report = f"""
@@ -83,6 +128,8 @@ def Magic_Numbers_Patterns(
     GROUND TRUTH ANALYSIS
     {'=' * 70}
     Total Columns Evaluated : {total_columns}
+    Processed by Algorithm  : {processing_counts["Processed"]} ({processing_counts["Processed"] / total_columns * 100:.1f}%)
+    Bypassed by Algorithm   : {processing_counts["Bypassed"]} ({processing_counts["Bypassed"] / total_columns * 100:.1f}%)
 
     Magic Number Presence per Column (from ground truth):
     0 Magic Numbers         : {zero_magic_count} columns ({pct_zero:.1f}%)
@@ -97,6 +144,8 @@ def Magic_Numbers_Patterns(
     {'=' * 70}
     """
     print(report)
+    print("Ground-truth distribution by processing status:")
+    print(pd.DataFrame(processing_summary).to_string(index=False, float_format=lambda value: f"{value:.1f}"))
     print(f"{'Magic Value':<20} | {'Dataset Frequency':<15}")
     print("-" * 40)
     
@@ -110,6 +159,11 @@ def Magic_Numbers_Patterns(
         csv_path = output_dir / f"Ground_Truth_Frequencies_sign{sign_opt}_gauss{gauss_opt}_overlap{overlap_opt}.csv"
         df_export.to_csv(csv_path, index=False)
         print(f"\nSaved frequencies to: {csv_path}")
+
+    if export_csv:
+        summary_path = output_dir / f"Ground_Truth_Processing_Summary_sign{sign_opt}_gauss{gauss_opt}_overlap{overlap_opt}.csv"
+        pd.DataFrame(processing_summary).to_csv(summary_path, index=False)
+        print(f"Saved processing summary to: {summary_path}")
 
 if __name__ == "__main__":
     Magic_Numbers_Patterns(

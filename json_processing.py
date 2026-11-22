@@ -64,6 +64,17 @@ class ModelEvaluator:
             print(f"\nError: Could not find the file '{self.filepath}'.")
             return None
 
+    @staticmethod
+    def _is_processed(value) -> bool:
+        if isinstance(value, bool):
+            return value
+        normalized = str(value).strip().lower()
+        if normalized in {"yes", "true", "1"}:
+            return True
+        if normalized in {"no", "false", "0"}:
+            return False
+        raise ValueError(f"Invalid algorithm processing status: {value!r}")
+
     def _extract_data(self, data):
         flattened = []
         for catalog_name, runs in data.items():
@@ -80,6 +91,15 @@ class ModelEvaluator:
                     continue
 
                 for col_name, column_metrics in run.get("Column_Metrics", {}).items():
+                    processing_status = column_metrics.get(
+                        "Processed_By_Algorithm",
+                        column_metrics.get("Processed by Algorithm"),
+                    )
+                    if processing_status is None:
+                        raise KeyError(
+                            f"Missing processing status for {catalog_name}/{col_name}"
+                        )
+
                     alg = column_metrics.get("Row-Instance Metrics")
                     if not isinstance(alg, dict):
                         raise KeyError(
@@ -151,7 +171,7 @@ class ModelEvaluator:
                                 len(column_metrics.get("Ground Truth Magic Numbers") or []) > 0,
                             )
                         ),
-                        "Processed_By_Algorithm": column_metrics.get("Processed by Algorithm", "Yes") == "Yes",
+                        "Processed_By_Algorithm": self._is_processed(processing_status),
                         "String_Detections": set(column_metrics.get("Magic Numbers String Process", []) or []),
                         "Sign_Detections": set(column_metrics.get("Magic Numbers Sign Violation", []) or []),
                         "Delta_Detections": set(column_metrics.get("Magic Numbers Delta", []) or []),
@@ -176,10 +196,78 @@ class ModelEvaluator:
 
     @staticmethod
     def _pooled_f1(tp: int, fp: int, fn: int) -> tuple[float, float, float]:
+        if tp == 0 and fp == 0 and fn == 0:
+            return 1.0, 1.0, 1.0
+
         precision = tp / (tp + fp) if tp + fp else 0.0
         recall = tp / (tp + fn) if tp + fn else 0.0
         f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
         return precision, recall, f1
+
+    @classmethod
+    def _performance_summary(cls, df):
+        if df.empty:
+            return {
+                "columns": 0,
+                "macro_precision": np.nan,
+                "macro_recall": np.nan,
+                "macro_f1": np.nan,
+                "micro_precision": np.nan,
+                "micro_recall": np.nan,
+                "micro_f1": np.nan,
+            }
+
+        tp, fp, fn = int(df["TP"].sum()), int(df["FP"].sum()), int(df["FN"].sum())
+        micro_precision, micro_recall, micro_f1 = cls._pooled_f1(tp, fp, fn)
+        return {
+            "columns": len(df),
+            "macro_precision": float(df["Framework_Precision"].mean()),
+            "macro_recall": float(df["Framework_Recall"].mean()),
+            "macro_f1": float(df["Framework_F1"].mean()),
+            "micro_precision": float(micro_precision),
+            "micro_recall": float(micro_recall),
+            "micro_f1": float(micro_f1),
+        }
+
+    @classmethod
+    def _build_processing_summary(cls, df):
+        rows = []
+        groups = [("Overall", "All", df)]
+        groups.extend(("Category", str(name), group) for name, group in df.groupby("Category"))
+        groups.extend(("Catalog", str(name), group) for name, group in df.groupby("Catalog"))
+
+        for grouping, name, group in groups:
+            processed = group[group["Processed_By_Algorithm"]]
+            bypassed = group[~group["Processed_By_Algorithm"]]
+            ground_truth = group[group["Has_Ground_Truth"]]
+            processed_ground_truth = processed[processed["Has_Ground_Truth"]]
+            bypassed_ground_truth = bypassed[bypassed["Has_Ground_Truth"]]
+
+            row = {
+                "Grouping": grouping,
+                "Group": name,
+                "Columns": len(group),
+                "Processed_Columns": len(processed),
+                "Bypassed_Columns": len(bypassed),
+                "Processing_Coverage_Pct": len(processed) / len(group) * 100 if len(group) else np.nan,
+                "Ground_Truth_Columns": len(ground_truth),
+                "Processed_Ground_Truth_Columns": len(processed_ground_truth),
+                "Bypassed_Ground_Truth_Columns": len(bypassed_ground_truth),
+                "Ground_Truth_Processing_Coverage_Pct": (
+                    len(processed_ground_truth) / len(ground_truth) * 100 if len(ground_truth) else np.nan
+                ),
+            }
+            for status, subset in (
+                ("Overall", group),
+                ("Processed", processed),
+                ("Bypassed", bypassed),
+            ):
+                for metric, value in cls._performance_summary(subset).items():
+                    if metric != "columns":
+                        row[f"{status}_{metric}"] = value
+            rows.append(row)
+
+        return pd.DataFrame(rows)
 
     def _calculate_metrics(self):
         df = self.df
@@ -228,7 +316,9 @@ class ModelEvaluator:
             "contam_micro_f1": float(c_micro_f1),
             "bypassed_contam_penalized": len(bypassed_contam),
             "clean_cols": len(clean_df),
-            "clean_col_fpr": float((clean_df["FP"] > 0).mean() * 100.0) if not clean_df.empty else 0.0,
+            "clean_col_false_alarm_incidence": (
+                float((clean_df["FP"] > 0).mean() * 100.0) if not clean_df.empty else 0.0
+            ),
             "clean_zero_fp_rate": float((clean_df["FP"] == 0).mean() * 100.0) if not clean_df.empty else 100.0,
             
         }
@@ -249,9 +339,12 @@ class ModelEvaluator:
 
         category_summary["Zero_FP_Rate"] *= 100
 
+        processing_summary = self._build_processing_summary(df)
+
         return {
             "df": df,
             "category_summary": category_summary,
+            "processing_summary": processing_summary,
             "baseline_wins": df[df["Best_Baseline_F1"] > df["Framework_F1"]].copy(),
             "totals": {"tp": total_tp, "fp": total_fp, "fn": total_fn},
             "micro": {"precision": micro_prec, "recall": micro_rec, "f1": micro_f1},
@@ -287,6 +380,12 @@ class ModelEvaluator:
                 Total catalogs           : {self.df['Catalog'].nunique()}
                 Categories               : {self.df['Category'].nunique()}
 
+                Algorithm Processing:
+                Processed columns        : {m['processing_summary'].iloc[0]['Processed_Columns']} ({m['processing_summary'].iloc[0]['Processing_Coverage_Pct']:.2f}% coverage)
+                Bypassed columns         : {m['processing_summary'].iloc[0]['Bypassed_Columns']}
+                Ground-truth columns     : {m['processing_summary'].iloc[0]['Ground_Truth_Columns']}
+                Ground-truth coverage    : {m['processing_summary'].iloc[0]['Ground_Truth_Processing_Coverage_Pct']:.2f}%
+
                 Framework Performance:
                 Macro Precision          : {m['macro']['precision']:.4f}
                 Macro Recall             : {m['macro']['recall']:.4f}
@@ -305,7 +404,7 @@ class ModelEvaluator:
 
                 Safety / Imbalance Metrics:
                 Macro MCC                : {m['macro']['mcc']:.4f}
-                Macro FPR                : {m['macro']['fpr']:.6f}
+                Macro Row-Level FPR      : {m['macro']['fpr']:.6f}
                 Zero-FP Column Rate      : {m['macro']['zero_fp_rate']:.2f}%
 
                 Stratified Evaluation (Contaminated vs. Clean):
@@ -316,10 +415,29 @@ class ModelEvaluator:
                 Contam. Catalog-Macro F1 : {m['stratified']['contam_catalog_macro_f1']:.4f}
                 Contam. Micro F1         : {m['stratified']['contam_micro_f1']:.4f}
                 Clean Columns            : {m['stratified']['clean_cols']}
-                Clean-Column FPR         : {m['stratified']['clean_col_fpr']:.2f}%
+                Clean-Column False-Alarm Incidence (%) : {m['stratified']['clean_col_false_alarm_incidence']:.2f}
                 Clean Zero-FP Rate       : {m['stratified']['clean_zero_fp_rate']:.2f}%
                 """
         print(report)
+
+        print("\nPerformance by Processing Status:")
+        status_columns = [
+            "Grouping",
+            "Group",
+            "Columns",
+            "Processed_Columns",
+            "Processing_Coverage_Pct",
+            "Overall_macro_f1",
+            "Processed_macro_f1",
+            "Bypassed_macro_f1",
+            "Overall_micro_f1",
+            "Processed_micro_f1",
+            "Bypassed_micro_f1",
+        ]
+        print(
+            m["processing_summary"][status_columns]
+            .to_string(index=False, float_format=lambda value: f"{value:.3f}")
+        )
 
         # Low Performance
         low_perf = self.df[self.df["Framework_F1"] < 0.5]
@@ -544,6 +662,7 @@ class ModelEvaluator:
         exports = {
             self.data_dir / f"{self.prefix}_Full_Evaluation.csv": df_export,
             self.data_dir / f"{self.prefix}_Category_Summary.csv": m["category_summary"],
+            self.data_dir / f"{self.prefix}_Processing_Summary.csv": m["processing_summary"],
             self.data_dir / f"{self.prefix}_Baseline_Wins.csv": m["baseline_wins"],
         }
 
